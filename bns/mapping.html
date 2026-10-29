@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IPC to BNS mapping — Sanhita Atlas</title>
+<meta name="description" content="Section-by-section correspondence between the Indian Penal Code, 1860 and the BNS, 2023.">
+<meta name="theme-color" content="#101a16">
+<meta property="og:title" content="IPC to BNS mapping — Sanhita Atlas">
+<meta property="og:description" content="Section-by-section correspondence between the Indian Penal Code, 1860 and the BNS, 2023.">
+<meta property="og:type" content="website">
+<meta name="sa-base" content="../">
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/app.css">
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js" defer></script>
+<script src="../assets/js/app.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js" defer></script>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr__in">
+    <button class="hdr__menu" id="menuBtn" aria-expanded="false" aria-controls="drawer"
+            aria-label="Open menu" x-data @click="$dispatch('toggle-drawer')">
+      <svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span>Menu</span>
+    </button>
+    <a class="brand" href="../index.html"><svg class="brand__mark" viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect x="1.2" y="1.2" width="29.6" height="29.6" rx="7.5" stroke="#b07d2a" stroke-width="1.6"/><path d="M9 11h14M9 16h14M9 21h8" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg><span>Sanhita <span style="color:#e0b062">Atlas</span></span>
+      <span class="brand__sub">BNS 2023</span></a>
+    <nav class="hdr__nav" aria-label="Primary"><a href="../bns/index.html">The Sanhita</a><a href="../bns/mapping.html" aria-current="true">Comparison</a><a href="../procedure/bnss.html">Procedure</a><a href="../research/index.html">Research</a></nav>
+    <button class="hdr__search" aria-label="Search" x-data @click="$dispatch('open-search')">
+      <svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg><span>Search</span><kbd>/</kbd>
+    </button>
+  </div>
+</header>
+
+<div class="scrim" id="scrim" x-data @click="$dispatch('close-drawer')"></div>
+
+<aside class="drawer" id="drawer" aria-label="Site menu" aria-hidden="true"
+       x-data x-bind:class="$store.ui.drawer ? '' : ''">
+  <div class="drawer__top">
+    <span class="drawer__brand"><svg class="brand__mark" viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect x="1.2" y="1.2" width="29.6" height="29.6" rx="7.5" stroke="#b07d2a" stroke-width="1.6"/><path d="M9 11h14M9 16h14M9 21h8" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg> Sanhita Atlas</span>
+    <button class="drawer__x" aria-label="Close menu" x-data @click="$dispatch('close-drawer')">
+      <svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <div class="drawer__body"><div class="drawer__group"><a class="drawer__link" href="../index.html">Home</a></div><div class="drawer__group"><p class="drawer__label">The Sanhita</p><a class="drawer__link" href="../bns/index.html">Overview</a><a class="drawer__link" href="../bns/chapters.html">Chapters</a><a class="drawer__link" href="../bns/sections.html">Section index</a><a class="drawer__link" href="../bns/punishments.html">Punishments</a></div><div class="drawer__group"><p class="drawer__label">Comparison</p><a class="drawer__link" href="../bns/mapping.html" aria-current="true">IPC to BNS</a><a class="drawer__link" href="../bns/changes.html">What changed</a></div><div class="drawer__group"><p class="drawer__label">Procedure</p><a class="drawer__link" href="../procedure/bnss.html">BNSS</a><a class="drawer__link" href="../procedure/bsa.html">Evidence Act</a></div><div class="drawer__group"><p class="drawer__label">Project</p><a class="drawer__link" href="../research/index.html">Methodology</a><a class="drawer__link" href="../about.html">About</a></div></div>
+  <div class="drawer__foot">Reference edition &middot; October 2026<br>Not legal advice.</div>
+</aside>
+
+<div class="smodal" id="smodal" x-data="searchModal()" x-show="$store.ui.search" x-cloak
+     @open-search.window="open()" @keydown.escape.window="close()">
+  <div class="smodal__box" @click.outside="close()">
+    <div class="smodal__in">
+      <svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg>
+      <input id="sq" type="search" placeholder="Search sections, offences, chapters" autocomplete="off"
+             x-model="q" @input.debounce.120ms="q = $event.target.value; run()" @keydown.arrow-down.prevent="move(1)"
+             @keydown.arrow-up.prevent="move(-1)" @keydown.enter.prevent="go()" x-ref="inp">
+      <kbd>esc</kbd>
+    </div>
+    <div class="smodal__res">
+      <template x-if="!q">
+        <p class="smodal__none">Search 150+ sections, offences and chapters of the Sanhita.</p>
+      </template>
+      <template x-if="q && !results.length">
+        <p class="smodal__none">No match. Try a section number, an offence or a chapter.</p>
+      </template>
+      <template x-for="(r,i) in results" :key="r.url+r.title">
+        <a :href="base+r.url" :class="i===sel ? 'sel' : ''" @mouseenter="sel=i" @click="close()">
+          <strong x-text="r.title"></strong>
+          <span x-text="r.context"></span>
+        </a>
+      </template>
+    </div>
+    <div class="smodal__foot"><span>&uarr;&darr; move &middot; &crarr; open</span><span x-text="results.length + ' results'"></span></div>
+  </div>
+</div>
+
+<div class="shell"><aside class="side"><div class="side__grp"><p class="side__k">The Sanhita</p><a class="side__a" href="../bns/index.html">Overview</a><a class="side__a" href="../bns/chapters.html">Chapters</a><a class="side__a" href="../bns/sections.html">Section index</a><a class="side__a" href="../bns/punishments.html">Punishments</a></div><div class="side__grp"><p class="side__k">Comparison</p><a class="side__a" href="../bns/mapping.html" aria-current="true">IPC to BNS</a><a class="side__a" href="../bns/changes.html">What changed</a></div><div class="side__grp"><p class="side__k">Procedure</p><a class="side__a" href="../procedure/bnss.html">BNSS</a><a class="side__a" href="../procedure/bsa.html">Evidence Act</a></div><div class="side__grp"><p class="side__k">Project</p><a class="side__a" href="../research/index.html">Methodology</a><a class="side__a" href="../about.html">About</a></div></aside>
+<main class="content" id="main">
+<div class="phead"><nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a><i>/</i><a href="index.html">The Sanhita</a><i>/</i><em>IPC to BNS</em></nav><h1>IPC to BNS: the correspondence</h1><p class="phead__lede">Forty provisions of the Indian Penal Code and where they landed in the Sanhita. The mapping is not one-to-one — several IPC sections were merged, split or reworded rather than carried across.</p><div class="pmeta"><span class="chip">39 mappings</span><span class="chip">IPC 1860 &rarr; BNS 2023</span></div></div>
+<div x-data="rowFilter()">
+  <div class="toolbar">
+    <div class="field"><svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg>
+      <input type="search" placeholder="Search an IPC or BNS section, or an offence" x-model="q" @input="q = $event.target.value; filter()">
+    </div>
+    <span class="count" x-text="shown + ' of 39'"></span>
+  </div>
+  <div class="tw"><div class="tw__scroll"><table>
+    <thead><tr><th style="width:90px">IPC</th><th style="width:230px">Offence</th>
+    <th style="width:90px">BNS</th><th style="width:230px">Offence</th><th>Note</th></tr></thead>
+    <tbody x-ref="body"><tr data-s="120b criminal conspiracy 61(2) criminal conspiracy"><td class="mono" style="color:var(--muted)">120B</td><td>Criminal conspiracy</td><td class="sec-n">61(2)</td><td><strong>Criminal conspiracy</strong></td><td style="color:var(--muted)">Punishment now graded by the gravity of the offence conspired at.</td></tr><tr data-s="124a sedition 152 acts endangering sovereignty"><td class="mono" style="color:var(--muted)">124A</td><td>Sedition</td><td class="sec-n">152</td><td><strong>Acts endangering sovereignty</strong></td><td style="color:var(--muted)">Sedition is gone as a label; the substance is recast and extended to secession and armed rebellion.</td></tr><tr data-s="141 unlawful assembly 189 unlawful assembly"><td class="mono" style="color:var(--muted)">141</td><td>Unlawful assembly</td><td class="sec-n">189</td><td><strong>Unlawful assembly</strong></td><td style="color:var(--muted)">Same five-person threshold; the clauses defining common object are redrawn.</td></tr><tr data-s="147 rioting 191 rioting"><td class="mono" style="color:var(--muted)">147</td><td>Rioting</td><td class="sec-n">191</td><td><strong>Rioting</strong></td><td style="color:var(--muted)">Definition carried forward; punishment now in sub-section (2).</td></tr><tr data-s="153a promoting enmity between groups 196 promoting enmity"><td class="mono" style="color:var(--muted)">153A</td><td>Promoting enmity between groups</td><td class="sec-n">196</td><td><strong>Promoting enmity</strong></td><td style="color:var(--muted)">Grounds extended to include &#x27;language&#x27; alongside religion, race and place of birth.</td></tr><tr data-s="193 punishment for false evidence 229 false evidence"><td class="mono" style="color:var(--muted)">193</td><td>Punishment for false evidence</td><td class="sec-n">229</td><td><strong>False evidence</strong></td><td style="color:var(--muted)">Consolidated with the fabricating provision.</td></tr><tr data-s="201 causing disappearance of evidence 238 causing disappearance of evidence"><td class="mono" style="color:var(--muted)">201</td><td>Causing disappearance of evidence</td><td class="sec-n">238</td><td><strong>Causing disappearance of evidence</strong></td><td style="color:var(--muted)">Carried forward with a higher ceiling where a capital offence is screened.</td></tr><tr data-s="272 adulteration of food or drink 274 adulteration of food"><td class="mono" style="color:var(--muted)">272</td><td>Adulteration of food or drink</td><td class="sec-n">274</td><td><strong>Adulteration of food</strong></td><td style="color:var(--muted)">Retained, with a new clause covering adulteration intended for sale.</td></tr><tr data-s="292 sale of obscene books 294 obscene acts and songs"><td class="mono" style="color:var(--muted)">292</td><td>Sale of obscene books</td><td class="sec-n">294</td><td><strong>Obscene acts and songs</strong></td><td style="color:var(--muted)">Obscenity provisions regrouped within Chapter XV.</td></tr><tr data-s="295 injuring place of worship 298 defiling place of worship"><td class="mono" style="color:var(--muted)">295</td><td>Injuring place of worship</td><td class="sec-n">298</td><td><strong>Defiling place of worship</strong></td><td style="color:var(--muted)">Carried forward.</td></tr><tr data-s="295a outraging religious feelings 299 outraging religious feelings"><td class="mono" style="color:var(--muted)">295A</td><td>Outraging religious feelings</td><td class="sec-n">299</td><td><strong>Outraging religious feelings</strong></td><td style="color:var(--muted)">Carried forward.</td></tr><tr data-s="302 murder 103(1) punishment for murder"><td class="mono" style="color:var(--muted)">302</td><td>Murder</td><td class="sec-n">103(1)</td><td><strong>Punishment for murder</strong></td><td style="color:var(--muted)">Death or life; the death penalty is no longer mandatory in any case.</td></tr><tr data-s="304 culpable homicide not amounting to murder 105 punishment for culpable homicide"><td class="mono" style="color:var(--muted)">304</td><td>Culpable homicide not amounting to murder</td><td class="sec-n">105</td><td><strong>Punishment for culpable homicide</strong></td><td style="color:var(--muted)">Structure retained across the two parts.</td></tr><tr data-s="304a death by negligence 106 causing death by negligence"><td class="mono" style="color:var(--muted)">304A</td><td>Death by negligence</td><td class="sec-n">106</td><td><strong>Causing death by negligence</strong></td><td style="color:var(--muted)">Base punishment raised; a new sub-section (2) punishes a driver who flees the scene.</td></tr><tr data-s="307 attempt to murder 109 attempt to murder"><td class="mono" style="color:var(--muted)">307</td><td>Attempt to murder</td><td class="sec-n">109</td><td><strong>Attempt to murder</strong></td><td style="color:var(--muted)">Carried forward, with hurt caused as the aggravating factor.</td></tr><tr data-s="309 attempt to suicide 226 attempt to commit suicide"><td class="mono" style="color:var(--muted)">309</td><td>Attempt to suicide</td><td class="sec-n">226</td><td><strong>Attempt to commit suicide</strong></td><td style="color:var(--muted)">Imprisonment replaced by a presumption of severe stress and a duty to rehabilitate.</td></tr><tr data-s="323 voluntarily causing hurt 115(2) voluntarily causing hurt"><td class="mono" style="color:var(--muted)">323</td><td>Voluntarily causing hurt</td><td class="sec-n">115(2)</td><td><strong>Voluntarily causing hurt</strong></td><td style="color:var(--muted)">Carried forward; community service available as a sentence.</td></tr><tr data-s="324 hurt by dangerous weapons 118(1) hurt by dangerous weapons"><td class="mono" style="color:var(--muted)">324</td><td>Hurt by dangerous weapons</td><td class="sec-n">118(1)</td><td><strong>Hurt by dangerous weapons</strong></td><td style="color:var(--muted)">Carried forward.</td></tr><tr data-s="325 voluntarily causing grievous hurt 117(2) voluntarily causing grievous hurt"><td class="mono" style="color:var(--muted)">325</td><td>Voluntarily causing grievous hurt</td><td class="sec-n">117(2)</td><td><strong>Voluntarily causing grievous hurt</strong></td><td style="color:var(--muted)">The eight categories of grievous hurt are retained.</td></tr><tr data-s="326 grievous hurt by dangerous weapons 119(2) grievous hurt by dangerous weapons"><td class="mono" style="color:var(--muted)">326</td><td>Grievous hurt by dangerous weapons</td><td class="sec-n">119(2)</td><td><strong>Grievous hurt by dangerous weapons</strong></td><td style="color:var(--muted)">Carried forward.</td></tr><tr data-s="326a acid attack 124 hurt by acid attack"><td class="mono" style="color:var(--muted)">326A</td><td>Acid attack</td><td class="sec-n">124</td><td><strong>Hurt by acid attack</strong></td><td style="color:var(--muted)">Minimum sentence of ten years retained.</td></tr><tr data-s="354 assault on a woman to outrage modesty 74 assault on a woman"><td class="mono" style="color:var(--muted)">354</td><td>Assault on a woman to outrage modesty</td><td class="sec-n">74</td><td><strong>Assault on a woman</strong></td><td style="color:var(--muted)">Carried forward.</td></tr><tr data-s="354a sexual harassment 75 sexual harassment"><td class="mono" style="color:var(--muted)">354A</td><td>Sexual harassment</td><td class="sec-n">75</td><td><strong>Sexual harassment</strong></td><td style="color:var(--muted)">Carried forward with the same four clauses.</td></tr><tr data-s="354d stalking 78 stalking"><td class="mono" style="color:var(--muted)">354D</td><td>Stalking</td><td class="sec-n">78</td><td><strong>Stalking</strong></td><td style="color:var(--muted)">Carried forward, including monitoring internet use.</td></tr><tr data-s="363 kidnapping 137(2) punishment for kidnapping"><td class="mono" style="color:var(--muted)">363</td><td>Kidnapping</td><td class="sec-n">137(2)</td><td><strong>Punishment for kidnapping</strong></td><td style="color:var(--muted)">Definition and punishment consolidated into one section.</td></tr><tr data-s="364a kidnapping for ransom 140(2) kidnapping for ransom"><td class="mono" style="color:var(--muted)">364A</td><td>Kidnapping for ransom</td><td class="sec-n">140(2)</td><td><strong>Kidnapping for ransom</strong></td><td style="color:var(--muted)">Death or life retained.</td></tr><tr data-s="370 trafficking 143 trafficking of a person"><td class="mono" style="color:var(--muted)">370</td><td>Trafficking</td><td class="sec-n">143</td><td><strong>Trafficking of a person</strong></td><td style="color:var(--muted)">Graded punishments by age and number of victims retained.</td></tr><tr data-s="376 punishment for rape 64 punishment for rape"><td class="mono" style="color:var(--muted)">376</td><td>Punishment for rape</td><td class="sec-n">64</td><td><strong>Punishment for rape</strong></td><td style="color:var(--muted)">Minimum of ten years to life retained.</td></tr><tr data-s="379 theft 303(2) punishment for theft"><td class="mono" style="color:var(--muted)">379</td><td>Theft</td><td class="sec-n">303(2)</td><td><strong>Punishment for theft</strong></td><td style="color:var(--muted)">Community service added for a first conviction of small-value theft.</td></tr><tr data-s="392 robbery 309(1) robbery"><td class="mono" style="color:var(--muted)">392</td><td>Robbery</td><td class="sec-n">309(1)</td><td><strong>Robbery</strong></td><td style="color:var(--muted)">Carried forward.</td></tr><tr data-s="395 dacoity 310(1) dacoity"><td class="mono" style="color:var(--muted)">395</td><td>Dacoity</td><td class="sec-n">310(1)</td><td><strong>Dacoity</strong></td><td style="color:var(--muted)">Carried forward.</td></tr><tr data-s="406 criminal breach of trust 316(2) criminal breach of trust"><td class="mono" style="color:var(--muted)">406</td><td>Criminal breach of trust</td><td class="sec-n">316(2)</td><td><strong>Criminal breach of trust</strong></td><td style="color:var(--muted)">Carried forward.</td></tr><tr data-s="411 receiving stolen property 317(2) receiving stolen property"><td class="mono" style="color:var(--muted)">411</td><td>Receiving stolen property</td><td class="sec-n">317(2)</td><td><strong>Receiving stolen property</strong></td><td style="color:var(--muted)">Carried forward.</td></tr><tr data-s="420 cheating 318(4) cheating"><td class="mono" style="color:var(--muted)">420</td><td>Cheating</td><td class="sec-n">318(4)</td><td><strong>Cheating</strong></td><td style="color:var(--muted)">Punishment now graded by the value of the property and the harm caused.</td></tr><tr data-s="465 forgery 336(1) forgery"><td class="mono" style="color:var(--muted)">465</td><td>Forgery</td><td class="sec-n">336(1)</td><td><strong>Forgery</strong></td><td style="color:var(--muted)">Carried forward.</td></tr><tr data-s="498a cruelty by husband or relatives 85 cruelty by husband or relatives"><td class="mono" style="color:var(--muted)">498A</td><td>Cruelty by husband or relatives</td><td class="sec-n">85</td><td><strong>Cruelty by husband or relatives</strong></td><td style="color:var(--muted)">Carried forward, with the same explanation of cruelty.</td></tr><tr data-s="499/500 defamation 356 defamation"><td class="mono" style="color:var(--muted)">499/500</td><td>Defamation</td><td class="sec-n">356</td><td><strong>Defamation</strong></td><td style="color:var(--muted)">Community service introduced as an alternative to imprisonment.</td></tr><tr data-s="506 criminal intimidation 351(2) punishment for criminal intimidation"><td class="mono" style="color:var(--muted)">506</td><td>Criminal intimidation</td><td class="sec-n">351(2)</td><td><strong>Punishment for criminal intimidation</strong></td><td style="color:var(--muted)">Carried forward, with graded punishment.</td></tr><tr data-s="509 word or gesture insulting modesty 79 insult to modesty"><td class="mono" style="color:var(--muted)">509</td><td>Word or gesture insulting modesty</td><td class="sec-n">79</td><td><strong>Insult to modesty</strong></td><td style="color:var(--muted)">Carried forward.</td></tr></tbody>
+  </table></div></div>
+  <div class="callout callout--warn" style="margin-top:1.4rem">
+    <div>
+      <h4>Selected correspondences</h4>
+      <p>This table covers the provisions most often looked up. It is not a complete concordance: the official
+      comparative table published with the Act runs to every section. Where a provision was substantively rewritten,
+      the note says so rather than implying equivalence.</p>
+    </div>
+  </div>
+</div>
+
+</main>
+</div>
+
+<footer class="ftr">
+  <div class="ftr__in">
+    <div class="ftr__grid">
+      <div>
+        <div class="ftr__brand"><svg class="brand__mark" viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect x="1.2" y="1.2" width="29.6" height="29.6" rx="7.5" stroke="#b07d2a" stroke-width="1.6"/><path d="M9 11h14M9 16h14M9 21h8" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg> Sanhita Atlas</div>
+        <p>An independent research platform for the Bharatiya Nyaya Sanhita, 2023 — the structure, the
+        correspondence with the IPC, and what changed on 1 July 2024.</p>
+      </div>
+      <div>
+        <h4>The Sanhita</h4>
+        <ul>
+          <li><a href="../bns/index.html">Overview</a></li>
+          <li><a href="../bns/chapters.html">Chapters</a></li>
+          <li><a href="../bns/sections.html">Section index</a></li>
+          <li><a href="../bns/punishments.html">Punishments</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Comparison</h4>
+        <ul>
+          <li><a href="../bns/mapping.html">IPC to BNS</a></li>
+          <li><a href="../bns/changes.html">What changed</a></li>
+          <li><a href="../procedure/bnss.html">BNSS</a></li>
+          <li><a href="../procedure/bsa.html">Evidence Act</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Project</h4>
+        <ul>
+          <li><a href="../research/index.html">Methodology</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="https://www.indiacode.nic.in/" target="_blank" rel="noopener">India Code</a></li>
+          <li><a href="https://github.com/apsideslabs/sanhita-atlas" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ftr__base">
+      <span>Compiled 29 October 2026 &middot; Act No. 45 of 2023</span>
+      <span>Independent research &middot; not legal advice</span>
+    </div>
+  </div>
+</footer>
+
+<style>[x-cloak]{display:none!important}</style>
+</body>
+</html>
