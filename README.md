@@ -1,49 +1,61 @@
 # Sanhita Atlas
 
-An independent research platform for the **Bharatiya Nyaya Sanhita, 2023** — the code that replaced the
-Indian Penal Code on 1 July 2024.
+A full-text reference to the **Bharatiya Nyaya Sanhita, 2023** — the code that replaced the Indian Penal Code
+on 1 July 2024.
 
-- **358 sections, 20 chapters** — the full structure, with exact section ranges
-- **Section index** — searchable, filterable by chapter
-- **IPC → BNS mapping** — 39 provisions and where they landed
-- **What changed** — the 20 new offences, the 19 provisions dropped, the penalties that moved
-- **Companion codes** — BNSS (procedure) and BSA (evidence)
+**Live:** https://apsideslabs.github.io/sanhita-atlas/
+
+## What it is
+
+Every one of the 358 sections of the Act, extracted from the Gazette notification of 25 December 2023, each on
+its own page with the statutory text, its chapter, the section that follows it, and the IPC provision it replaced.
+
+- **358 section pages** — the text of the provision, set for reading
+- **20 chapter pages** — ranges, subject matter and the sections inside
+- **Browse** — all sections in one filterable table
+- **Search** — Fuse.js over the full text of every section, opened with `/`
+- **IPC to BNS** — 35 correspondences with notes where the provision was rewritten
 
 ## Stack
 
-Static HTML and CSS, no build runtime.
+Static HTML and CSS. No framework, no build runtime in the browser.
 
 | Layer | Choice |
 | --- | --- |
-| Styling | Hand-written CSS design system + Tailwind base/utilities |
+| Type | Source Serif 4 (statute), Instrument Sans (UI), JetBrains Mono (numbers) |
 | Interactivity | [Alpine.js](https://alpinejs.dev) 3 |
 | Search | [Fuse.js](https://fusejs.io) over a static JSON index |
-| Charts | [Chart.js](https://www.chartjs.org) |
-| Type | Sora, Public Sans, JetBrains Mono |
+| Hosting | GitHub Pages |
 
 ## Structure
 
 ```
-index.html              platform home
-bns/                    the Sanhita — overview, chapters, sections, mapping, changes, punishments
-procedure/              BNSS and BSA
-research/               methodology and sources
-about.html              404.html
-assets/css/app.css      compiled stylesheet
-assets/js/app.js        Alpine components
-assets/data/search.json search index
+index.html            overview
+browse.html           all 358 sections, filterable
+chapters.html         20 chapter cards
+chapter/N.html        a chapter and its sections
+section/N.html        a single section
+mapping.html          IPC to BNS correspondence
+changes.html          new offences and what moved
+about.html            404.html
+assets/               css, js, search index, favicon
+tools/                generator (build.py, parse.py, src/)
 ```
 
-## Local development
+## Rebuilding
 
 ```bash
-npm install
-python3 build.py                       # generate HTML into dist/
-npx tailwindcss -i src/app.css -o dist/assets/css/app.css --minify
-python3 -m http.server -d dist 8000
+# 1. extract the Act from the Gazette PDF
+python3 tools/parse.py        # -> sections.json
+
+# 2. generate the site
+python3 tools/build.py        # -> dist/
 ```
+
+`tools/parse.py` reads the 102-page Gazette PDF and splits it into 358 sections using the section numbering,
+the chapter headings and the marginal notes.
 
 ## Licence
 
-MIT. The statutory text it indexes is published by the Government of India and is not claimed by this project.
+MIT for the code. The statutory text is published by the Government of India and is not claimed here.
 Not legal advice.
