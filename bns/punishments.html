@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Punishments — Sanhita Atlas</title>
+<meta name="description" content="The seven punishments under Section 4, the fine regime and the statutory minimum sentences.">
+<meta name="theme-color" content="#101a16">
+<meta property="og:title" content="Punishments — Sanhita Atlas">
+<meta property="og:description" content="The seven punishments under Section 4, the fine regime and the statutory minimum sentences.">
+<meta property="og:type" content="website">
+<meta name="sa-base" content="../">
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/app.css">
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js" defer></script>
+<script src="../assets/js/app.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js" defer></script>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr__in">
+    <button class="hdr__menu" id="menuBtn" aria-expanded="false" aria-controls="drawer"
+            aria-label="Open menu" x-data @click="$dispatch('toggle-drawer')">
+      <svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span>Menu</span>
+    </button>
+    <a class="brand" href="../index.html"><svg class="brand__mark" viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect x="1.2" y="1.2" width="29.6" height="29.6" rx="7.5" stroke="#b07d2a" stroke-width="1.6"/><path d="M9 11h14M9 16h14M9 21h8" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg><span>Sanhita <span style="color:#e0b062">Atlas</span></span>
+      <span class="brand__sub">BNS 2023</span></a>
+    <nav class="hdr__nav" aria-label="Primary"><a href="../bns/index.html">The Sanhita</a><a href="../bns/mapping.html">Comparison</a><a href="../procedure/bnss.html">Procedure</a><a href="../research/index.html">Research</a></nav>
+    <button class="hdr__search" aria-label="Search" x-data @click="$dispatch('open-search')">
+      <svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg><span>Search</span><kbd>/</kbd>
+    </button>
+  </div>
+</header>
+
+<div class="scrim" id="scrim" x-data @click="$dispatch('close-drawer')"></div>
+
+<aside class="drawer" id="drawer" aria-label="Site menu" aria-hidden="true"
+       x-data x-bind:class="$store.ui.drawer ? '' : ''">
+  <div class="drawer__top">
+    <span class="drawer__brand"><svg class="brand__mark" viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect x="1.2" y="1.2" width="29.6" height="29.6" rx="7.5" stroke="#b07d2a" stroke-width="1.6"/><path d="M9 11h14M9 16h14M9 21h8" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg> Sanhita Atlas</span>
+    <button class="drawer__x" aria-label="Close menu" x-data @click="$dispatch('close-drawer')">
+      <svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <div class="drawer__body"><div class="drawer__group"><a class="drawer__link" href="../index.html">Home</a></div><div class="drawer__group"><p class="drawer__label">The Sanhita</p><a class="drawer__link" href="../bns/index.html">Overview</a><a class="drawer__link" href="../bns/chapters.html">Chapters</a><a class="drawer__link" href="../bns/sections.html">Section index</a><a class="drawer__link" href="../bns/punishments.html" aria-current="true">Punishments</a></div><div class="drawer__group"><p class="drawer__label">Comparison</p><a class="drawer__link" href="../bns/mapping.html">IPC to BNS</a><a class="drawer__link" href="../bns/changes.html">What changed</a></div><div class="drawer__group"><p class="drawer__label">Procedure</p><a class="drawer__link" href="../procedure/bnss.html">BNSS</a><a class="drawer__link" href="../procedure/bsa.html">Evidence Act</a></div><div class="drawer__group"><p class="drawer__label">Project</p><a class="drawer__link" href="../research/index.html">Methodology</a><a class="drawer__link" href="../about.html">About</a></div></div>
+  <div class="drawer__foot">Reference edition &middot; October 2026<br>Not legal advice.</div>
+</aside>
+
+<div class="smodal" id="smodal" x-data="searchModal()" x-show="$store.ui.search" x-cloak
+     @open-search.window="open()" @keydown.escape.window="close()">
+  <div class="smodal__box" @click.outside="close()">
+    <div class="smodal__in">
+      <svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg>
+      <input id="sq" type="search" placeholder="Search sections, offences, chapters" autocomplete="off"
+             x-model="q" @input.debounce.120ms="q = $event.target.value; run()" @keydown.arrow-down.prevent="move(1)"
+             @keydown.arrow-up.prevent="move(-1)" @keydown.enter.prevent="go()" x-ref="inp">
+      <kbd>esc</kbd>
+    </div>
+    <div class="smodal__res">
+      <template x-if="!q">
+        <p class="smodal__none">Search 150+ sections, offences and chapters of the Sanhita.</p>
+      </template>
+      <template x-if="q && !results.length">
+        <p class="smodal__none">No match. Try a section number, an offence or a chapter.</p>
+      </template>
+      <template x-for="(r,i) in results" :key="r.url+r.title">
+        <a :href="base+r.url" :class="i===sel ? 'sel' : ''" @mouseenter="sel=i" @click="close()">
+          <strong x-text="r.title"></strong>
+          <span x-text="r.context"></span>
+        </a>
+      </template>
+    </div>
+    <div class="smodal__foot"><span>&uarr;&darr; move &middot; &crarr; open</span><span x-text="results.length + ' results'"></span></div>
+  </div>
+</div>
+
+<div class="shell"><aside class="side"><div class="side__grp"><p class="side__k">The Sanhita</p><a class="side__a" href="../bns/index.html">Overview</a><a class="side__a" href="../bns/chapters.html">Chapters</a><a class="side__a" href="../bns/sections.html">Section index</a><a class="side__a" href="../bns/punishments.html" aria-current="true">Punishments</a></div><div class="side__grp"><p class="side__k">Comparison</p><a class="side__a" href="../bns/mapping.html">IPC to BNS</a><a class="side__a" href="../bns/changes.html">What changed</a></div><div class="side__grp"><p class="side__k">Procedure</p><a class="side__a" href="../procedure/bnss.html">BNSS</a><a class="side__a" href="../procedure/bsa.html">Evidence Act</a></div><div class="side__grp"><p class="side__k">Project</p><a class="side__a" href="../research/index.html">Methodology</a><a class="side__a" href="../about.html">About</a></div></aside>
+<main class="content" id="main">
+<div class="phead"><nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a><i>/</i><a href="index.html">The Sanhita</a><i>/</i><em>Punishments</em></nav><h1>The punishment framework</h1><p class="phead__lede">Section 4 lists seven punishments. The Sanhita keeps the IPC's structure but adds community service, and introduces statutory minimums for a set of offences that previously had none.</p><div class="pmeta"><span class="chip">7 punishments</span><span class="chip">23 minimum sentences</span><span class="chip chip--ok">Community service added</span></div></div>
+<h2 class="sh">The seven punishments — Section 4</h2>
+<div class="grid grid--2"><div class="card"><div class="card__b"><span class="card__k">01</span><h3>Death</h3><p>Awarded for a defined set of offences — murder, gang rape in certain cases, terrorism, and repeat offences. It is no longer mandatory in any case; the court must record reasons where it chooses life instead.</p></div></div><div class="card"><div class="card__b"><span class="card__k">02</span><h3>Imprisonment for life</h3><p>The default alternative to death. Its meaning is fixed by the procedure code, and commutation is governed by Section 5.</p></div></div><div class="card"><div class="card__b"><span class="card__k">03</span><h3>Rigorous imprisonment</h3><p>Imprisonment with hard labour. Used where the section specifies 'rigorous'.</p></div></div><div class="card"><div class="card__b"><span class="card__k">04</span><h3>Simple imprisonment</h3><p>Imprisonment without hard labour, for the offences the code marks as simple.</p></div></div><div class="card"><div class="card__b"><span class="card__k">05</span><h3>Forfeiture of property</h3><p>Available only where the section expressly provides for it.</p></div></div><div class="card"><div class="card__b"><span class="card__k">06</span><h3>Fine</h3><p>Fixed or discretionary, with the considerations in Section 8 and imprisonment in default.</p></div></div><div class="card"><div class="card__b"><span class="card__k">07</span><h3>Community service</h3><p>New in 2023. Ordered for six specified offences, and conceived as an alternative to short custodial sentences.</p></div></div></div>
+
+<h2 class="sh">How the sentence is computed</h2>
+<div class="tw"><div class="tw__scroll"><table>
+  <thead><tr><th style="width:100px">Section</th><th style="width:260px">Provision</th><th>Effect</th></tr></thead>
+  <tbody>
+    <tr><td class="sec-n">5</td><td><strong>Commutation</strong></td>
+      <td>The appropriate Government may commute a death sentence, and may commute life imprisonment in the
+      cases listed — for example where the offender is a woman or a person under eighteen.</td></tr>
+    <tr><td class="sec-n">6</td><td><strong>Fractions of a term</strong></td>
+      <td>Where the code refers to a portion of a maximum term, the portion is calculated on that maximum.</td></tr>
+    <tr><td class="sec-n">8</td><td><strong>Fine and default</strong></td>
+      <td>Fixing a fine turns on the offender's means and the injury caused; non-payment converts to imprisonment
+      within statutory limits.</td></tr>
+    <tr><td class="sec-n">9&ndash;10</td><td><strong>Several offences</strong></td>
+      <td>The limit on punishment where an act constitutes several offences, and the rule where the judgment is
+      doubtful as to which offence was committed.</td></tr>
+    <tr><td class="sec-n">11&ndash;12</td><td><strong>Solitary confinement</strong></td>
+      <td>Permitted only in the listed cases, and barred for women and for persons sentenced to simple
+      imprisonment.</td></tr>
+    <tr><td class="sec-n">13</td><td><strong>Repeat offenders</strong></td>
+      <td>Enhanced punishment after a previous conviction in the specified cases.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 class="sh">Minimum sentences</h2>
+<p class="slead">Twenty-three offences acquired a statutory floor. The ones most often encountered:</p>
+<div class="tw"><div class="tw__scroll"><table>
+  <thead><tr><th style="width:100px">Section</th><th style="width:240px">Offence</th><th>Minimum</th></tr></thead>
+  <tbody>
+    <tr><td class="sec-n">64</td><td>Rape</td><td>Ten years rigorous imprisonment, extendable to life</td></tr>
+    <tr><td class="sec-n">65</td><td>Rape causing death or a persistent vegetative state</td><td>Twenty years, extendable to life</td></tr>
+    <tr><td class="sec-n">66</td><td>Rape of a child under twelve</td><td>Twenty years, extendable to life, or death</td></tr>
+    <tr><td class="sec-n">70</td><td>Gang rape</td><td>Twenty years, extendable to life</td></tr>
+    <tr><td class="sec-n">103</td><td>Murder</td><td>Death or life, and a fine</td></tr>
+    <tr><td class="sec-n">111</td><td>Organised crime</td><td>Five years; death or life where it causes death</td></tr>
+    <tr><td class="sec-n">113</td><td>Terrorist act</td><td>Five years; death or life where it causes death</td></tr>
+    <tr><td class="sec-n">124</td><td>Acid attack</td><td>Ten years, extendable to life</td></tr>
+  </tbody>
+</table></div></div>
+
+<div class="callout">
+  <div>
+    <h4>Community service in practice</h4>
+    <p>Section 4(f) makes community service a punishment, but the code does not define it. The procedure code and
+    the rules made under it supply the mechanics — the court orders the work, and non-compliance is treated as a
+    breach of the order.</p>
+  </div>
+</div>
+
+</main>
+</div>
+
+<footer class="ftr">
+  <div class="ftr__in">
+    <div class="ftr__grid">
+      <div>
+        <div class="ftr__brand"><svg class="brand__mark" viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect x="1.2" y="1.2" width="29.6" height="29.6" rx="7.5" stroke="#b07d2a" stroke-width="1.6"/><path d="M9 11h14M9 16h14M9 21h8" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg> Sanhita Atlas</div>
+        <p>An independent research platform for the Bharatiya Nyaya Sanhita, 2023 — the structure, the
+        correspondence with the IPC, and what changed on 1 July 2024.</p>
+      </div>
+      <div>
+        <h4>The Sanhita</h4>
+        <ul>
+          <li><a href="../bns/index.html">Overview</a></li>
+          <li><a href="../bns/chapters.html">Chapters</a></li>
+          <li><a href="../bns/sections.html">Section index</a></li>
+          <li><a href="../bns/punishments.html">Punishments</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Comparison</h4>
+        <ul>
+          <li><a href="../bns/mapping.html">IPC to BNS</a></li>
+          <li><a href="../bns/changes.html">What changed</a></li>
+          <li><a href="../procedure/bnss.html">BNSS</a></li>
+          <li><a href="../procedure/bsa.html">Evidence Act</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Project</h4>
+        <ul>
+          <li><a href="../research/index.html">Methodology</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="https://www.indiacode.nic.in/" target="_blank" rel="noopener">India Code</a></li>
+          <li><a href="https://github.com/apsideslabs/sanhita-atlas" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ftr__base">
+      <span>Compiled 29 October 2026 &middot; Act No. 45 of 2023</span>
+      <span>Independent research &middot; not legal advice</span>
+    </div>
+  </div>
+</footer>
+
+<style>[x-cloak]{display:none!important}</style>
+</body>
+</html>
