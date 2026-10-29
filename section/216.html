@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Section 216 — False statement on oath or affirmation to public servant or person authorised to administer an oath or affirmation</title>
+<meta name="description" content="216. Whoever, being legally bound by an oath or affirmation to state the truth on any subject to any public servant or other person authorised by law …">
+<meta name="theme-color" content="#ffffff">
+<meta name="sa-base" content="../">
+<meta property="og:title" content="Section 216 — False statement on oath or affirmation to public servant or person authorised to administer an oath or affirmation">
+<meta property="og:description" content="216. Whoever, being legally bound by an oath or affirmation to state the truth on any subject to any public servant or other person authorised by law …">
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/app.css">
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js" defer></script>
+<script src="../assets/js/app.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js" defer></script>
+</head>
+<body>
+<header class="hdr">
+  <div class="hdr__in">
+    <button class="mbtn" id="menuBtn" aria-label="Open menu" x-data @click="$dispatch('toggle-drawer')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <a class="brand" href="../index.html"><svg class="brand__mark" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="1.4" y="1.4" width="21.2" height="21.2" rx="4" stroke="#9d174d" stroke-width="1.5"/><path d="M7 8h10M7 12h10M7 16h6" stroke="#14161a" stroke-width="1.6" stroke-linecap="round"/></svg><span>Sanhita Atlas</span><span class="brand__sub">BNS 2023</span></a>
+    <nav class="nav" aria-label="Primary"><a href="../index.html">Home</a><a href="../browse.html">Sections</a><a href="../chapters.html">Chapters</a><a href="../mapping.html">IPC to BNS</a><a href="../changes.html">What changed</a></nav>
+    <div class="hdr__act">
+      <button class="sbtn" x-data @click="$dispatch('open-search')" aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg><span>Search</span><kbd>/</kbd></button>
+    </div>
+  </div>
+</header>
+
+<div class="scrim" x-data @click="$dispatch('close-drawer')"></div>
+<aside class="drawer" id="drawer" aria-label="Menu">
+  <div class="drawer__top">
+    <a class="brand" href="../index.html"><svg class="brand__mark" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="1.4" y="1.4" width="21.2" height="21.2" rx="4" stroke="#9d174d" stroke-width="1.5"/><path d="M7 8h10M7 12h10M7 16h6" stroke="#14161a" stroke-width="1.6" stroke-linecap="round"/></svg><span>Sanhita Atlas</span></a>
+    <button class="drawer__x" x-data @click="$dispatch('close-drawer')" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <div class="drawer__body"><p class="drawer__k">Chapters</p><a class="drawer__a" href="../chapter/1.html">Preliminary<span>1–3</span></a><a class="drawer__a" href="../chapter/2.html">Punishments<span>4–13</span></a><a class="drawer__a" href="../chapter/3.html">General Exceptions<span>14–44</span></a><a class="drawer__a" href="../chapter/4.html">Abetment, Criminal Conspiracy and Attempt<span>45–62</span></a><a class="drawer__a" href="../chapter/5.html">Offences against Woman and Child<span>63–99</span></a><a class="drawer__a" href="../chapter/6.html">Offences affecting the Human Body<span>100–146</span></a><a class="drawer__a" href="../chapter/7.html">Offences against the State<span>147–158</span></a><a class="drawer__a" href="../chapter/8.html">Offences relating to the Army, Navy and Air Force<span>159–168</span></a><a class="drawer__a" href="../chapter/9.html">Offences relating to Elections<span>169–177</span></a><a class="drawer__a" href="../chapter/10.html">Offences relating to Coin, Currency and Government Stamps<span>178–188</span></a><a class="drawer__a" href="../chapter/11.html">Offences against Public Tranquillity<span>189–197</span></a><a class="drawer__a" href="../chapter/12.html">Offences by or relating to Public Servants<span>198–205</span></a><a class="drawer__a" href="../chapter/13.html" aria-current="true">Contempt of the Lawful Authority of Public Servants<span>206–226</span></a><a class="drawer__a" href="../chapter/14.html">False Evidence and Offences against Public Justice<span>227–269</span></a><a class="drawer__a" href="../chapter/15.html">Offences affecting Public Health, Safety, Decency and Morals<span>270–297</span></a><a class="drawer__a" href="../chapter/16.html">Offences relating to Religion<span>298–302</span></a><a class="drawer__a" href="../chapter/17.html">Offences against Property<span>303–334</span></a><a class="drawer__a" href="../chapter/18.html">Offences relating to Documents and Property Marks<span>335–350</span></a><a class="drawer__a" href="../chapter/19.html">Criminal Intimidation, Insult, Annoyance and Defamation<span>351–357</span></a><a class="drawer__a" href="../chapter/20.html">Repeal and Savings<span>358–358</span></a><p class="drawer__k">Reference</p><a class="drawer__a" href="../browse.html">All sections</a><a class="drawer__a" href="../mapping.html">IPC to BNS</a><a class="drawer__a" href="../changes.html">What changed</a><a class="drawer__a" href="../about.html">About</a></div>
+</aside>
+
+<div class="smodal" x-data="searchModal()" x-show="$store.ui.search" x-cloak
+     @open-search.window="open()" @keydown.escape.window="close()">
+  <div class="smodal__box" @click.outside="close()">
+    <div class="smodal__in">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg>
+      <input id="sq" type="search" placeholder="Search 358 sections by number, title or text"
+             autocomplete="off" x-model="q" @input.debounce.100ms="q = $event.target.value; run()"
+             @keydown.arrow-down.prevent="move(1)" @keydown.arrow-up.prevent="move(-1)"
+             @keydown.enter.prevent="go()">
+      <kbd>esc</kbd>
+    </div>
+    <div class="smodal__res">
+      <template x-if="!q"><p class="smodal__none">Type a section number, an offence, or a phrase from the text.</p></template>
+      <template x-if="q && !results.length"><p class="smodal__none">No match. Try a section number or a shorter phrase.</p></template>
+      <template x-for="(r,i) in results" :key="r.n">
+        <a :href="base+r.url" :class="i===sel ? 'sel' : ''" @mouseenter="sel=i" @click="close()">
+          <strong x-text="r.title"></strong><span x-text="r.context"></span>
+        </a>
+      </template>
+    </div>
+    <div class="smodal__foot"><span>&uarr;&darr; move &middot; &crarr; open</span><span x-text="results.length + ' results'"></span></div>
+  </div>
+</div>
+
+<div class="shell"><aside class="side"><p class="side__k">Chapter XIII &middot; Contempt of the Lawful Authority of Public Servants</p><a class="side__a" href="../section/206.html">206. Absconding to avoid service of summons or other proceeding</a><a class="side__a" href="../section/207.html">207. Preventing service of summons or other proceeding, or preventing publication thereof</a><a class="side__a" href="../section/208.html">208. Nonattendance in obedience to an order from public servant</a><a class="side__a" href="../section/209.html">209. Nonappearance in response to a proclamation under section 84 of Bharatiya Nagarik Suraksha Sanhita, 2023</a><a class="side__a" href="../section/210.html">210. Omission to produce document or electronic record to public servant by person legally bound to produce it</a><a class="side__a" href="../section/211.html">211. Omission to give notice or information to public servant by person legally bound to give it</a><a class="side__a" href="../section/212.html">212. Furnishing false information</a><a class="side__a" href="../section/213.html">213. Refusing oath or affirmation when duly required by public servant to make it</a><a class="side__a" href="../section/214.html">214. Refusing to answer public servant authorised to question</a><a class="side__a" href="../section/215.html">215. Refusing to sign statement</a><a class="side__a" href="../section/216.html" aria-current="true">216. False statement on oath or affirmation to public servant or person authorised to administer an oath or affirmation</a><a class="side__a" href="../section/217.html">217. False information, with intent to cause public servant to use his lawful power to injury of another person</a><a class="side__a" href="../section/218.html">218. Resistance to taking of property by lawful authority of a public servant</a><a class="side__a" href="../section/219.html">219. Obstructing sale of property offered for sale by authority of public servant</a><a class="side__a" href="../section/220.html">220. Illegal purchase or bid for property offered for sale by authority of public servant</a><a class="side__a" href="../section/221.html">221. Obstructing public servant in discharge of public functions</a><a class="side__a" href="../section/222.html">222. Omission to assist public servant when bound by law to give assistance</a><a class="side__a" href="../section/223.html">223. Disobedience to order duly promulgated by public servant</a><a class="side__a" href="../section/224.html">224. Threat of injury to public servant</a><a class="side__a" href="../section/225.html">225. Threat of injury to induce person to refrain from applying for protection to public servant</a><a class="side__a" href="../section/226.html">226. Attempt to commit suicide to compel or restrain exercise of lawful power</a><a class="side__a" href="../chapters.html" style="margin-top:.6rem;color:var(--muted)">All chapters &rarr;</a></aside><main class="content">
+<div class="crumbs"><a href="../index.html">Home</a><i>/</i><a href="../chapter/13.html">Chapter XIII</a><i>/</i><em>Section 216</em></div><span class="snum">Section 216</span><h1 class="stitle">False statement on oath or affirmation to public servant or person authorised to administer an oath or affirmation</h1><div class="pmeta"><span class="chip chip--mono">Chapter XIII</span><span class="chip">Contempt of the Lawful Authority of Public Servants</span></div><div class="statute sbody"><p>Whoever, being legally bound by an oath or affirmation to state the truth on any subject to any public servant or other person authorised by law to administer such oath or affirmation, makes, to such public servant or other person as aforesaid, touching that subject, any statement which is false, and which he either knows or believes to be false or does not believe to be true, shall be punished with imprisonment of either description for a term which may extend to three years, and shall also be liable to fine.</p></div><div class="note"><p>Text extracted from the Gazette notification of 25 December 2023 and reformatted for reading. Check the official copy before relying on it.</p></div><nav class="pager"><a class="pg pg--prev" href="../section/215.html"><span>Previous</span><strong>Section 215</strong><small>Refusing to sign statement</small></a><a class="pg pg--next" href="../section/217.html"><span>Next</span><strong>Section 217</strong><small>False information, with intent to cause public servant to use his lawful power to injury of another person</small></a></nav>
+</main></div>
+
+<footer class="foot">
+  <div class="foot__in">
+    <span>Sanhita Atlas &middot; text of the Bharatiya Nyaya Sanhita, 2023 (Act 45 of 2023)</span>
+    <div class="foot__links">
+      <a href="../browse.html">All sections</a>
+      <a href="../chapters.html">Chapters</a>
+      <a href="../mapping.html">IPC to BNS</a>
+      <a href="../about.html">About</a>
+      <a href="https://www.indiacode.nic.in/" target="_blank" rel="noopener">India Code</a>
+    </div>
+    <span>Not legal advice &middot; verify against the Gazette</span>
+  </div>
+</footer>
+<style>[x-cloak]{display:none!important}</style>
+<script>document.addEventListener('alpine:init',function(){if(!Alpine.store('ui'))Alpine.store('ui',{drawer:false,search:false});});</script>
+</body>
+</html>
