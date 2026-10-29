@@ -3,74 +3,59 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sanhita Atlas — the Bharatiya Nyaya Sanhita, 2023, mapped</title>
-<meta name="description" content="A research platform for the BNS 2023: 358 sections, 20 chapters, the IPC correspondence and every offence that changed on 1 July 2024.">
-<meta name="theme-color" content="#101a16">
-<meta property="og:title" content="Sanhita Atlas — the Bharatiya Nyaya Sanhita, 2023, mapped">
-<meta property="og:description" content="A research platform for the BNS 2023: 358 sections, 20 chapters, the IPC correspondence and every offence that changed on 1 July 2024.">
-<meta property="og:type" content="website">
+<title>Sanhita Atlas — the Bharatiya Nyaya Sanhita, 2023</title>
+<meta name="description" content="The full text of all 358 sections of the BNS, by chapter and section.">
+<meta name="theme-color" content="#ffffff">
 <meta name="sa-base" content="">
+<meta property="og:title" content="Sanhita Atlas — the Bharatiya Nyaya Sanhita, 2023">
+<meta property="og:description" content="The full text of all 358 sections of the BNS, by chapter and section.">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/app.css">
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js" defer></script>
 <script src="assets/js/app.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js" defer></script>
 </head>
 <body>
-
 <header class="hdr">
   <div class="hdr__in">
-    <button class="hdr__menu" id="menuBtn" aria-expanded="false" aria-controls="drawer"
-            aria-label="Open menu" x-data @click="$dispatch('toggle-drawer')">
-      <svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span>Menu</span>
-    </button>
-    <a class="brand" href="index.html"><svg class="brand__mark" viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect x="1.2" y="1.2" width="29.6" height="29.6" rx="7.5" stroke="#b07d2a" stroke-width="1.6"/><path d="M9 11h14M9 16h14M9 21h8" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg><span>Sanhita <span style="color:#e0b062">Atlas</span></span>
-      <span class="brand__sub">BNS 2023</span></a>
-    <nav class="hdr__nav" aria-label="Primary"><a href="bns/index.html">The Sanhita</a><a href="bns/mapping.html">Comparison</a><a href="procedure/bnss.html">Procedure</a><a href="research/index.html">Research</a></nav>
-    <button class="hdr__search" aria-label="Search" x-data @click="$dispatch('open-search')">
-      <svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg><span>Search</span><kbd>/</kbd>
-    </button>
+    <button class="mbtn" id="menuBtn" aria-label="Open menu" x-data @click="$dispatch('toggle-drawer')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <a class="brand" href="index.html"><svg class="brand__mark" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="1.4" y="1.4" width="21.2" height="21.2" rx="4" stroke="#9d174d" stroke-width="1.5"/><path d="M7 8h10M7 12h10M7 16h6" stroke="#14161a" stroke-width="1.6" stroke-linecap="round"/></svg><span>Sanhita Atlas</span><span class="brand__sub">BNS 2023</span></a>
+    <nav class="nav" aria-label="Primary"><a href="index.html">Home</a><a href="browse.html">Sections</a><a href="chapters.html">Chapters</a><a href="mapping.html">IPC to BNS</a><a href="changes.html">What changed</a></nav>
+    <div class="hdr__act">
+      <button class="sbtn" x-data @click="$dispatch('open-search')" aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg><span>Search</span><kbd>/</kbd></button>
+    </div>
   </div>
 </header>
 
-<div class="scrim" id="scrim" x-data @click="$dispatch('close-drawer')"></div>
-
-<aside class="drawer" id="drawer" aria-label="Site menu" aria-hidden="true"
-       x-data x-bind:class="$store.ui.drawer ? '' : ''">
+<div class="scrim" x-data @click="$dispatch('close-drawer')"></div>
+<aside class="drawer" id="drawer" aria-label="Menu">
   <div class="drawer__top">
-    <span class="drawer__brand"><svg class="brand__mark" viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect x="1.2" y="1.2" width="29.6" height="29.6" rx="7.5" stroke="#b07d2a" stroke-width="1.6"/><path d="M9 11h14M9 16h14M9 21h8" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg> Sanhita Atlas</span>
-    <button class="drawer__x" aria-label="Close menu" x-data @click="$dispatch('close-drawer')">
-      <svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
-    </button>
+    <a class="brand" href="index.html"><svg class="brand__mark" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="1.4" y="1.4" width="21.2" height="21.2" rx="4" stroke="#9d174d" stroke-width="1.5"/><path d="M7 8h10M7 12h10M7 16h6" stroke="#14161a" stroke-width="1.6" stroke-linecap="round"/></svg><span>Sanhita Atlas</span></a>
+    <button class="drawer__x" x-data @click="$dispatch('close-drawer')" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   </div>
-  <div class="drawer__body"><div class="drawer__group"><a class="drawer__link" href="index.html">Home</a></div><div class="drawer__group"><p class="drawer__label">The Sanhita</p><a class="drawer__link" href="bns/index.html">Overview</a><a class="drawer__link" href="bns/chapters.html">Chapters</a><a class="drawer__link" href="bns/sections.html">Section index</a><a class="drawer__link" href="bns/punishments.html">Punishments</a></div><div class="drawer__group"><p class="drawer__label">Comparison</p><a class="drawer__link" href="bns/mapping.html">IPC to BNS</a><a class="drawer__link" href="bns/changes.html">What changed</a></div><div class="drawer__group"><p class="drawer__label">Procedure</p><a class="drawer__link" href="procedure/bnss.html">BNSS</a><a class="drawer__link" href="procedure/bsa.html">Evidence Act</a></div><div class="drawer__group"><p class="drawer__label">Project</p><a class="drawer__link" href="research/index.html">Methodology</a><a class="drawer__link" href="about.html">About</a></div></div>
-  <div class="drawer__foot">Reference edition &middot; October 2026<br>Not legal advice.</div>
+  <div class="drawer__body"><p class="drawer__k">Chapters</p><a class="drawer__a" href="chapter/1.html">Preliminary<span>1–3</span></a><a class="drawer__a" href="chapter/2.html">Punishments<span>4–13</span></a><a class="drawer__a" href="chapter/3.html">General Exceptions<span>14–44</span></a><a class="drawer__a" href="chapter/4.html">Abetment, Criminal Conspiracy and Attempt<span>45–62</span></a><a class="drawer__a" href="chapter/5.html">Offences against Woman and Child<span>63–99</span></a><a class="drawer__a" href="chapter/6.html">Offences affecting the Human Body<span>100–146</span></a><a class="drawer__a" href="chapter/7.html">Offences against the State<span>147–158</span></a><a class="drawer__a" href="chapter/8.html">Offences relating to the Army, Navy and Air Force<span>159–168</span></a><a class="drawer__a" href="chapter/9.html">Offences relating to Elections<span>169–177</span></a><a class="drawer__a" href="chapter/10.html">Offences relating to Coin, Currency and Government Stamps<span>178–188</span></a><a class="drawer__a" href="chapter/11.html">Offences against Public Tranquillity<span>189–197</span></a><a class="drawer__a" href="chapter/12.html">Offences by or relating to Public Servants<span>198–205</span></a><a class="drawer__a" href="chapter/13.html">Contempt of the Lawful Authority of Public Servants<span>206–226</span></a><a class="drawer__a" href="chapter/14.html">False Evidence and Offences against Public Justice<span>227–269</span></a><a class="drawer__a" href="chapter/15.html">Offences affecting Public Health, Safety, Decency and Morals<span>270–297</span></a><a class="drawer__a" href="chapter/16.html">Offences relating to Religion<span>298–302</span></a><a class="drawer__a" href="chapter/17.html">Offences against Property<span>303–334</span></a><a class="drawer__a" href="chapter/18.html">Offences relating to Documents and Property Marks<span>335–350</span></a><a class="drawer__a" href="chapter/19.html">Criminal Intimidation, Insult, Annoyance and Defamation<span>351–357</span></a><a class="drawer__a" href="chapter/20.html">Repeal and Savings<span>358–358</span></a><p class="drawer__k">Reference</p><a class="drawer__a" href="browse.html">All sections</a><a class="drawer__a" href="mapping.html">IPC to BNS</a><a class="drawer__a" href="changes.html">What changed</a><a class="drawer__a" href="about.html">About</a></div>
 </aside>
 
-<div class="smodal" id="smodal" x-data="searchModal()" x-show="$store.ui.search" x-cloak
+<div class="smodal" x-data="searchModal()" x-show="$store.ui.search" x-cloak
      @open-search.window="open()" @keydown.escape.window="close()">
   <div class="smodal__box" @click.outside="close()">
     <div class="smodal__in">
-      <svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg>
-      <input id="sq" type="search" placeholder="Search sections, offences, chapters" autocomplete="off"
-             x-model="q" @input.debounce.120ms="q = $event.target.value; run()" @keydown.arrow-down.prevent="move(1)"
-             @keydown.arrow-up.prevent="move(-1)" @keydown.enter.prevent="go()" x-ref="inp">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg>
+      <input id="sq" type="search" placeholder="Search 358 sections by number, title or text"
+             autocomplete="off" x-model="q" @input.debounce.100ms="q = $event.target.value; run()"
+             @keydown.arrow-down.prevent="move(1)" @keydown.arrow-up.prevent="move(-1)"
+             @keydown.enter.prevent="go()">
       <kbd>esc</kbd>
     </div>
     <div class="smodal__res">
-      <template x-if="!q">
-        <p class="smodal__none">Search 150+ sections, offences and chapters of the Sanhita.</p>
-      </template>
-      <template x-if="q && !results.length">
-        <p class="smodal__none">No match. Try a section number, an offence or a chapter.</p>
-      </template>
-      <template x-for="(r,i) in results" :key="r.url+r.title">
+      <template x-if="!q"><p class="smodal__none">Type a section number, an offence, or a phrase from the text.</p></template>
+      <template x-if="q && !results.length"><p class="smodal__none">No match. Try a section number or a shorter phrase.</p></template>
+      <template x-for="(r,i) in results" :key="r.n">
         <a :href="base+r.url" :class="i===sel ? 'sel' : ''" @mouseenter="sel=i" @click="close()">
-          <strong x-text="r.title"></strong>
-          <span x-text="r.context"></span>
+          <strong x-text="r.title"></strong><span x-text="r.context"></span>
         </a>
       </template>
     </div>
@@ -78,119 +63,82 @@
   </div>
 </div>
 
-
-<main class="content content--wide" id="main">
+<div class="shell" style="grid-template-columns:1fr"><main class="content">
 
 <section class="hero">
   <div class="hero__in">
     <div>
-      <p class="eyebrow">Bharatiya Nyaya Sanhita &middot; Act 45 of 2023</p>
-      <h1>Every section of the Sanhita, <em>mapped</em>.</h1>
-      <p class="hero__lede">A research platform for the code that replaced the Indian Penal Code on 1 July 2024 —
-      358 sections across 20 chapters, the correspondence with the 1860 Code, and every offence that was added,
-      dropped or repriced.</p>
+      <p class="kicker">Bharatiya Nyaya Sanhita, 2023 &middot; Act 45 of 2023</p>
+      <h1>The penal code, <em>readable</em>.</h1>
+      <p class="hero__lede">The full text of all 358 sections of the BNS, arranged the way the Act is arranged —
+      by chapter, by section, with the IPC provision each one replaced.</p>
       <div class="hero__act">
-        <a class="btn btn--primary" href="bns/chapters.html">Explore the chapters <svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M12.5 6l6 6-6 6"/></svg></a>
-        <a class="btn btn--ghost" href="bns/mapping.html">IPC to BNS mapping</a>
+        <a class="btn btn--primary" href="browse.html">Browse all 358 sections</a>
+        <a class="btn btn--ghost" href="chapters.html">Start with the chapters</a>
       </div>
     </div>
-    <aside class="hero__panel">
-      <span class="hero__pk">The Sanhita at a glance</span>
+    <div class="hero__side">
+      <h4>The code in numbers</h4>
       <dl class="facts">
-        <div><dt>358</dt><dd>Sections</dd></div>
-        <div><dt>20</dt><dd>Chapters</dd></div>
-        <div><dt>20</dt><dd>New offences</dd></div>
-        <div><dt>19</dt><dd>Provisions dropped</dd></div>
+        <div><dt>358</dt><dd>sections</dd></div>
+        <div><dt>20</dt><dd>chapters</dd></div>
+        <div><dt>20</dt><dd>new offences</dd></div>
+        <div><dt>1 Jul</dt><dd>2024 in force</dd></div>
       </dl>
-      <p class="hero__pn">In force 1 July 2024. Repeals the Indian Penal Code, 1860.</p>
-    </aside>
+      <p style="margin:1.2rem 0 0;font-size:.8rem;color:var(--muted);line-height:1.5">
+        Text extracted from the Gazette notification of 25 December 2023.</p>
+    </div>
   </div>
 </section>
 
-<div class="wrap" style="padding-top:2.2rem">
-  <div class="stats">
-    <div class="stat"><span class="stat__n">33</span><span class="stat__l">Punishments increased</span></div>
-    <div class="stat"><span class="stat__n">83</span><span class="stat__l">Fines increased</span></div>
-    <div class="stat"><span class="stat__n">23</span><span class="stat__l">Minimum sentences added</span></div>
-    <div class="stat"><span class="stat__n">6</span><span class="stat__l">Community service offences</span></div>
-  </div>
-
+<div class="wrap">
   <section class="sect">
-    <div class="sect__head"><h2>Explore the platform</h2>
-      <a class="sect__link" href="bns/index.html">Start with the overview <svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M12.5 6l6 6-6 6"/></svg></a></div>
-    <div class="grid grid--3"><a class="ncard" href="bns/chapters.html"><span class="ncard__i"><svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8.5 4.5L12 12 3.5 7.5 12 3z"/><path d="M3.5 12L12 16.5 20.5 12M3.5 16.5L12 21l8.5-4.5"/></svg></span><h3>Chapters</h3><p>All 20 chapters with their exact section ranges and what each one covers.</p><span class="ncard__m">20 chapters · 358 sections</span><span class="ncard__a"><svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M12.5 6l6 6-6 6"/></svg></span></a><a class="ncard" href="bns/sections.html"><span class="ncard__i"><svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6h12M8 12h12M8 18h12"/><circle cx="4.2" cy="6" r="1.1"/><circle cx="4.2" cy="12" r="1.1"/><circle cx="4.2" cy="18" r="1.1"/></svg></span><h3>Section index</h3><p>A searchable index of the sections that matter in practice, filterable by chapter.</p><span class="ncard__m">94 sections</span><span class="ncard__a"><svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M12.5 6l6 6-6 6"/></svg></span></a><a class="ncard" href="bns/mapping.html"><span class="ncard__i"><svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2.4"/><circle cx="6" cy="18" r="2.4"/><circle cx="18" cy="12" r="2.4"/><path d="M6 8.4v7.2M8.4 6h5.2a2 2 0 012 2v1.6"/></svg></span><h3>IPC to BNS</h3><p>Section-by-section correspondence between the 1860 Code and the 2023 Sanhita.</p><span class="ncard__m">39 mappings</span><span class="ncard__a"><svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M12.5 6l6 6-6 6"/></svg></span></a><a class="ncard" href="bns/changes.html"><span class="ncard__i"><svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3z"/></svg></span><h3>What changed</h3><p>Twenty new offences, nineteen provisions dropped, and the penalties that moved.</p><span class="ncard__m">20 additions</span><span class="ncard__a"><svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M12.5 6l6 6-6 6"/></svg></span></a><a class="ncard" href="procedure/bnss.html"><span class="ncard__i"><svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V9l-6-6z"/><path d="M13 3v6h6"/></svg></span><h3>Procedure</h3><p>How the BNSS changes investigation, bail and trial timelines.</p><span class="ncard__m">7 anchors</span><span class="ncard__a"><svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M12.5 6l6 6-6 6"/></svg></span></a><a class="ncard" href="bns/punishments.html"><span class="ncard__i"><svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v16M7 20h10M4 8h16"/><path d="M4 8l-2 5h4L4 8zM20 8l-2 5h4l-2-5z"/></svg></span><h3>Punishments</h3><p>The seven punishments, community service, and the minimum sentences.</p><span class="ncard__m">7 types</span><span class="ncard__a"><svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M12.5 6l6 6-6 6"/></svg></span></a></div>
+    <div class="sect__head"><h2>Browse by chapter</h2>
+      <a class="sect__link" href="chapters.html">All 20 chapters &rarr;</a></div>
+    <div class="grid grid--3"><a class="card" href="chapter/1.html"><span class="chnum">Chapter I &middot; ss. 1–3</span><h3>Preliminary</h3><p>Short title, application, definitions and general explanations.</p></a><a class="card" href="chapter/2.html"><span class="chnum">Chapter II &middot; ss. 4–13</span><h3>Punishments</h3><p>The seven punishments, commutation, fines and solitary confinement.</p></a><a class="card" href="chapter/3.html"><span class="chnum">Chapter III &middot; ss. 14–44</span><h3>General Exceptions</h3><p>Mistake, accident, infancy, unsoundness of mind, consent, necessity — and the right of private defence.</p></a><a class="card" href="chapter/4.html"><span class="chnum">Chapter IV &middot; ss. 45–62</span><h3>Abetment, Criminal Conspiracy and Attempt</h3><p>Liability for instigating, conspiring and attempting, including abetment that never ripens into the offence.</p></a><a class="card" href="chapter/5.html"><span class="chnum">Chapter V &middot; ss. 63–99</span><h3>Offences against Woman and Child</h3><p>Sexual offences, criminal force, marriage offences, miscarriage, trafficking and offences against children.</p></a><a class="card" href="chapter/6.html"><span class="chnum">Chapter VI &middot; ss. 100–146</span><h3>Offences affecting the Human Body</h3><p>Culpable homicide and murder, hurt, restraint and confinement, kidnapping and forced labour.</p></a><a class="card" href="chapter/7.html"><span class="chnum">Chapter VII &middot; ss. 147–158</span><h3>Offences against the State</h3><p>Waging war, conspiracy against the State, and acts endangering sovereignty.</p></a><a class="card" href="chapter/8.html"><span class="chnum">Chapter VIII &middot; ss. 159–168</span><h3>Offences relating to the Army, Navy and Air Force</h3><p>Abetting mutiny and seducing service personnel from their allegiance.</p></a><a class="card" href="chapter/9.html"><span class="chnum">Chapter IX &middot; ss. 169–177</span><h3>Offences relating to Elections</h3><p>Bribery, undue influence, personation and interference with elections.</p></a></div>
   </section>
 
   <section class="sect">
-    <div class="sect__head"><h2>How the Sanhita is organised</h2>
-      <a class="sect__link" href="bns/chapters.html">All 20 chapters <svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M12.5 6l6 6-6 6"/></svg></a></div>
-    <div class="tw"><div class="tw__scroll"><table>
-      <thead><tr><th style="width:70px">Chapter</th><th>Subject</th><th style="width:110px">Sections</th><th style="width:90px">Count</th></tr></thead>
-      <tbody><tr><td class="mono" style="color:var(--brass-2)">I</td><td><strong>Preliminary</strong></td><td class="mono num">1&ndash;3</td><td style="color:var(--muted)">3</td></tr><tr><td class="mono" style="color:var(--brass-2)">II</td><td><strong>Punishments</strong></td><td class="mono num">4&ndash;13</td><td style="color:var(--muted)">10</td></tr><tr><td class="mono" style="color:var(--brass-2)">III</td><td><strong>General Exceptions</strong></td><td class="mono num">14&ndash;44</td><td style="color:var(--muted)">31</td></tr><tr><td class="mono" style="color:var(--brass-2)">IV</td><td><strong>Abetment, Criminal Conspiracy and Attempt</strong></td><td class="mono num">45&ndash;62</td><td style="color:var(--muted)">18</td></tr><tr><td class="mono" style="color:var(--brass-2)">V</td><td><strong>Offences against Woman and Child</strong></td><td class="mono num">63&ndash;99</td><td style="color:var(--muted)">37</td></tr><tr><td class="mono" style="color:var(--brass-2)">VI</td><td><strong>Offences affecting the Human Body</strong></td><td class="mono num">100&ndash;146</td><td style="color:var(--muted)">47</td></tr><tr><td class="mono" style="color:var(--brass-2)">VII</td><td><strong>Offences against the State</strong></td><td class="mono num">147&ndash;158</td><td style="color:var(--muted)">12</td></tr><tr><td class="mono" style="color:var(--brass-2)">VIII</td><td><strong>Offences relating to the Army, Navy and Air Force</strong></td><td class="mono num">159&ndash;168</td><td style="color:var(--muted)">10</td></tr></tbody>
-    </table></div></div>
-    <p style="font-size:.82rem;color:var(--muted);margin-top:.75rem;max-width:70ch">
-      The first eight chapters cover the machinery of the code — definitions, punishments, general exceptions and
-      abetment. The substantive offences begin at Chapter V.</p>
+    <div class="sect__head"><h2>How to use this</h2></div>
+    <div class="grid grid--3">
+      <div class="card"><span class="card__k">Read</span><h3>Section by section</h3>
+        <p>Every section has its own page with the statutory text, its chapter and the IPC section it replaced.
+        Move through a chapter with the previous and next links.</p></div>
+      <div class="card"><span class="card__k">Find</span><h3>Search the text</h3>
+        <p>Press <code>/</code> anywhere to search all 358 sections by number, title or a phrase from the
+        provision itself — not just the headings.</p></div>
+      <div class="card"><span class="card__k">Compare</span><h3>Against the IPC</h3>
+        <p>The correspondence table maps the provisions most often looked up, with a note wherever the new
+        section was rewritten rather than carried across.</p></div>
+    </div>
   </section>
 
   <section class="sect">
-    <div class="callout callout--warn">
-      <div>
-        <h4>How to use this platform</h4>
-        <p>Sanhita Atlas is an independent index, not a substitute for the Act. Section numbers were renumbered in
-        2023 and the correspondence is not one-to-one — always check a provision against the Gazette text before
-        relying on it. <a href="research/index.html">Read the methodology</a>.</p>
-      </div>
+    <div class="callout">
+      <h4>An independent index, not the statute</h4>
+      <p>The text here is extracted from the Gazette and lightly reformatted for reading. It is a reference, not
+      an authoritative copy — check <a href="https://www.indiacode.nic.in/" target="_blank" rel="noopener">India
+      Code</a> before relying on a provision. Nothing here is legal advice.</p>
     </div>
   </section>
 </div>
 
-</main>
+</main></div>
 
-
-<footer class="ftr">
-  <div class="ftr__in">
-    <div class="ftr__grid">
-      <div>
-        <div class="ftr__brand"><svg class="brand__mark" viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect x="1.2" y="1.2" width="29.6" height="29.6" rx="7.5" stroke="#b07d2a" stroke-width="1.6"/><path d="M9 11h14M9 16h14M9 21h8" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg> Sanhita Atlas</div>
-        <p>An independent research platform for the Bharatiya Nyaya Sanhita, 2023 — the structure, the
-        correspondence with the IPC, and what changed on 1 July 2024.</p>
-      </div>
-      <div>
-        <h4>The Sanhita</h4>
-        <ul>
-          <li><a href="bns/index.html">Overview</a></li>
-          <li><a href="bns/chapters.html">Chapters</a></li>
-          <li><a href="bns/sections.html">Section index</a></li>
-          <li><a href="bns/punishments.html">Punishments</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Comparison</h4>
-        <ul>
-          <li><a href="bns/mapping.html">IPC to BNS</a></li>
-          <li><a href="bns/changes.html">What changed</a></li>
-          <li><a href="procedure/bnss.html">BNSS</a></li>
-          <li><a href="procedure/bsa.html">Evidence Act</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Project</h4>
-        <ul>
-          <li><a href="research/index.html">Methodology</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="https://www.indiacode.nic.in/" target="_blank" rel="noopener">India Code</a></li>
-          <li><a href="https://github.com/apsideslabs/sanhita-atlas" target="_blank" rel="noopener">GitHub</a></li>
-        </ul>
-      </div>
+<footer class="foot">
+  <div class="foot__in">
+    <span>Sanhita Atlas &middot; text of the Bharatiya Nyaya Sanhita, 2023 (Act 45 of 2023)</span>
+    <div class="foot__links">
+      <a href="browse.html">All sections</a>
+      <a href="chapters.html">Chapters</a>
+      <a href="mapping.html">IPC to BNS</a>
+      <a href="about.html">About</a>
+      <a href="https://www.indiacode.nic.in/" target="_blank" rel="noopener">India Code</a>
     </div>
-    <div class="ftr__base">
-      <span>Compiled 29 October 2026 &middot; Act No. 45 of 2023</span>
-      <span>Independent research &middot; not legal advice</span>
-    </div>
+    <span>Not legal advice &middot; verify against the Gazette</span>
   </div>
 </footer>
-
 <style>[x-cloak]{display:none!important}</style>
+<script>document.addEventListener('alpine:init',function(){if(!Alpine.store('ui'))Alpine.store('ui',{drawer:false,search:false});});</script>
 </body>
 </html>
