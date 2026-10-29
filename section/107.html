@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Section 107 — Abetment of suicide of child or person of unsound mind</title>
+<meta name="description" content="107. If any child, any person of unsound mind, any delirious person or any person in a state of intoxication, commits suicide, whoever abets the commi…">
+<meta name="theme-color" content="#ffffff">
+<meta name="sa-base" content="../">
+<meta property="og:title" content="Section 107 — Abetment of suicide of child or person of unsound mind">
+<meta property="og:description" content="107. If any child, any person of unsound mind, any delirious person or any person in a state of intoxication, commits suicide, whoever abets the commi…">
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/app.css">
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js" defer></script>
+<script src="../assets/js/app.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js" defer></script>
+</head>
+<body>
+<header class="hdr">
+  <div class="hdr__in">
+    <button class="mbtn" id="menuBtn" aria-label="Open menu" x-data @click="$dispatch('toggle-drawer')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <a class="brand" href="../index.html"><svg class="brand__mark" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="1.4" y="1.4" width="21.2" height="21.2" rx="4" stroke="#9d174d" stroke-width="1.5"/><path d="M7 8h10M7 12h10M7 16h6" stroke="#14161a" stroke-width="1.6" stroke-linecap="round"/></svg><span>Sanhita Atlas</span><span class="brand__sub">BNS 2023</span></a>
+    <nav class="nav" aria-label="Primary"><a href="../index.html">Home</a><a href="../browse.html">Sections</a><a href="../chapters.html">Chapters</a><a href="../mapping.html">IPC to BNS</a><a href="../changes.html">What changed</a></nav>
+    <div class="hdr__act">
+      <button class="sbtn" x-data @click="$dispatch('open-search')" aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg><span>Search</span><kbd>/</kbd></button>
+    </div>
+  </div>
+</header>
+
+<div class="scrim" x-data @click="$dispatch('close-drawer')"></div>
+<aside class="drawer" id="drawer" aria-label="Menu">
+  <div class="drawer__top">
+    <a class="brand" href="../index.html"><svg class="brand__mark" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="1.4" y="1.4" width="21.2" height="21.2" rx="4" stroke="#9d174d" stroke-width="1.5"/><path d="M7 8h10M7 12h10M7 16h6" stroke="#14161a" stroke-width="1.6" stroke-linecap="round"/></svg><span>Sanhita Atlas</span></a>
+    <button class="drawer__x" x-data @click="$dispatch('close-drawer')" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <div class="drawer__body"><p class="drawer__k">Chapters</p><a class="drawer__a" href="../chapter/1.html">Preliminary<span>1–3</span></a><a class="drawer__a" href="../chapter/2.html">Punishments<span>4–13</span></a><a class="drawer__a" href="../chapter/3.html">General Exceptions<span>14–44</span></a><a class="drawer__a" href="../chapter/4.html">Abetment, Criminal Conspiracy and Attempt<span>45–62</span></a><a class="drawer__a" href="../chapter/5.html">Offences against Woman and Child<span>63–99</span></a><a class="drawer__a" href="../chapter/6.html" aria-current="true">Offences affecting the Human Body<span>100–146</span></a><a class="drawer__a" href="../chapter/7.html">Offences against the State<span>147–158</span></a><a class="drawer__a" href="../chapter/8.html">Offences relating to the Army, Navy and Air Force<span>159–168</span></a><a class="drawer__a" href="../chapter/9.html">Offences relating to Elections<span>169–177</span></a><a class="drawer__a" href="../chapter/10.html">Offences relating to Coin, Currency and Government Stamps<span>178–188</span></a><a class="drawer__a" href="../chapter/11.html">Offences against Public Tranquillity<span>189–197</span></a><a class="drawer__a" href="../chapter/12.html">Offences by or relating to Public Servants<span>198–205</span></a><a class="drawer__a" href="../chapter/13.html">Contempt of the Lawful Authority of Public Servants<span>206–226</span></a><a class="drawer__a" href="../chapter/14.html">False Evidence and Offences against Public Justice<span>227–269</span></a><a class="drawer__a" href="../chapter/15.html">Offences affecting Public Health, Safety, Decency and Morals<span>270–297</span></a><a class="drawer__a" href="../chapter/16.html">Offences relating to Religion<span>298–302</span></a><a class="drawer__a" href="../chapter/17.html">Offences against Property<span>303–334</span></a><a class="drawer__a" href="../chapter/18.html">Offences relating to Documents and Property Marks<span>335–350</span></a><a class="drawer__a" href="../chapter/19.html">Criminal Intimidation, Insult, Annoyance and Defamation<span>351–357</span></a><a class="drawer__a" href="../chapter/20.html">Repeal and Savings<span>358–358</span></a><p class="drawer__k">Reference</p><a class="drawer__a" href="../browse.html">All sections</a><a class="drawer__a" href="../mapping.html">IPC to BNS</a><a class="drawer__a" href="../changes.html">What changed</a><a class="drawer__a" href="../about.html">About</a></div>
+</aside>
+
+<div class="smodal" x-data="searchModal()" x-show="$store.ui.search" x-cloak
+     @open-search.window="open()" @keydown.escape.window="close()">
+  <div class="smodal__box" @click.outside="close()">
+    <div class="smodal__in">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg>
+      <input id="sq" type="search" placeholder="Search 358 sections by number, title or text"
+             autocomplete="off" x-model="q" @input.debounce.100ms="q = $event.target.value; run()"
+             @keydown.arrow-down.prevent="move(1)" @keydown.arrow-up.prevent="move(-1)"
+             @keydown.enter.prevent="go()">
+      <kbd>esc</kbd>
+    </div>
+    <div class="smodal__res">
+      <template x-if="!q"><p class="smodal__none">Type a section number, an offence, or a phrase from the text.</p></template>
+      <template x-if="q && !results.length"><p class="smodal__none">No match. Try a section number or a shorter phrase.</p></template>
+      <template x-for="(r,i) in results" :key="r.n">
+        <a :href="base+r.url" :class="i===sel ? 'sel' : ''" @mouseenter="sel=i" @click="close()">
+          <strong x-text="r.title"></strong><span x-text="r.context"></span>
+        </a>
+      </template>
+    </div>
+    <div class="smodal__foot"><span>&uarr;&darr; move &middot; &crarr; open</span><span x-text="results.length + ' results'"></span></div>
+  </div>
+</div>
+
+<div class="shell"><aside class="side"><p class="side__k">Chapter VI &middot; Offences affecting the Human Body</p><a class="side__a" href="../section/100.html">100. Culpable homicide</a><a class="side__a" href="../section/101.html">101. Murder</a><a class="side__a" href="../section/102.html">102. Culpable homicide by causing death of person other than person whose death was intended</a><a class="side__a" href="../section/103.html">103. Punishment for murder</a><a class="side__a" href="../section/104.html">104. Punishment for murder by life-convict</a><a class="side__a" href="../section/105.html">105. Punishment for culpable homicide not amounting to murder</a><a class="side__a" href="../section/106.html">106. Causing death by negligence</a><a class="side__a" href="../section/107.html" aria-current="true">107. Abetment of suicide of child or person of unsound mind</a><a class="side__a" href="../section/108.html">108. Abetment of suicide</a><a class="side__a" href="../section/109.html">109. Attempt to murder</a><a class="side__a" href="../section/110.html">110. Attempt to commit culpable homicide</a><a class="side__a" href="../section/111.html">111. Organised crime</a><a class="side__a" href="../section/112.html">112. Petty organised crime</a><a class="side__a" href="../section/113.html">113. Terrorist act</a><a class="side__a" href="../section/114.html">114. Voluntarily causing hurt</a><a class="side__a" href="../section/115.html">115. Voluntarily causing hurt</a><a class="side__a" href="../section/116.html">116. Grievous hurt</a><a class="side__a" href="../section/117.html">117. Voluntarily causing grievous hurt</a><a class="side__a" href="../section/118.html">118. Voluntarily causing hurt or grievous hurt by dangerous weapons or means</a><a class="side__a" href="../section/119.html">119. Voluntarily causing hurt or grievous hurt to extort property, or to constrain to an illegal act</a><a class="side__a" href="../section/120.html">120. Voluntarily causing hurt or grievous hurt to extort confession, or to compel restoration of property</a><a class="side__a" href="../section/121.html">121. Voluntarily causing hurt or grievous hurt to deter public servant from his duty</a><a class="side__a" href="../section/122.html">122. Voluntarily causing hurt or grievous hurt on provocation</a><a class="side__a" href="../section/123.html">123. Causing hurt by means of poison, etc., with intent to commit an offence</a><a class="side__a" href="../section/124.html">124. Voluntarily causing grievous hurt by use of acid, etc</a><a class="side__a" href="../section/125.html">125. Act endangering life or personal safety of others</a><a class="side__a" href="../section/126.html">126. Wrongful restraint</a><a class="side__a" href="../section/127.html">127. Wrongful confinement</a><a class="side__a" href="../section/128.html">128. Force</a><a class="side__a" href="../section/129.html">129. Criminal force</a><a class="side__a" href="../section/130.html">130. Assault</a><a class="side__a" href="../section/131.html">131. Punishment for assault or criminal force otherwise than on grave provocation</a><a class="side__a" href="../section/132.html">132. Assault or criminal force to deter public servant from discharge of his duty</a><a class="side__a" href="../section/133.html">133. Assault or criminal force with intent to dishonour person, otherwise than on grave provocation</a><a class="side__a" href="../section/134.html">134. Assault or criminal force in attempt to commit theft of property carried by a person</a><a class="side__a" href="../section/135.html">135. Assault or criminal force in attempt to wrongfully confine a person</a><a class="side__a" href="../section/136.html">136. Assault or criminal force on grave provocation</a><a class="side__a" href="../section/137.html">137. Kidnapping</a><a class="side__a" href="../section/138.html">138. Abduction</a><a class="side__a" href="../section/139.html">139. Kidnapping or maiming a child for purposes of begging</a><a class="side__a" href="../section/140.html">140. Kidnapping or abducting in order to murder or for ransom, etc</a><a class="side__a" href="../section/141.html">141. Importation of girl or boy from foreign country</a><a class="side__a" href="../section/142.html">142. Wrongfully concealing or keeping in confinement, kidnapped or abducted person</a><a class="side__a" href="../section/143.html">143. Trafficking of person</a><a class="side__a" href="../section/144.html">144. Exploitation of a trafficked person</a><a class="side__a" href="../section/145.html">145. Habitual dealing in slaves</a><a class="side__a" href="../section/146.html">146. Unlawful compulsory labour</a><a class="side__a" href="../chapters.html" style="margin-top:.6rem;color:var(--muted)">All chapters &rarr;</a></aside><main class="content">
+<div class="crumbs"><a href="../index.html">Home</a><i>/</i><a href="../chapter/6.html">Chapter VI</a><i>/</i><em>Section 107</em></div><span class="snum">Section 107</span><h1 class="stitle">Abetment of suicide of child or person of unsound mind</h1><div class="pmeta"><span class="chip chip--mono">Chapter VI</span><span class="chip">Offences affecting the Human Body</span></div><div class="statute sbody"><p>If any child, any person of unsound mind, any delirious person or any person in a state of intoxication, commits suicide, whoever abets the commission of such suicide, shall be punished with death or imprisonment for life, or imprisonment for a term not exceeding ten years, and shall also be liable to fine.</p></div><div class="note"><p>Text extracted from the Gazette notification of 25 December 2023 and reformatted for reading. Check the official copy before relying on it.</p></div><nav class="pager"><a class="pg pg--prev" href="../section/106.html"><span>Previous</span><strong>Section 106</strong><small>Causing death by negligence</small></a><a class="pg pg--next" href="../section/108.html"><span>Next</span><strong>Section 108</strong><small>Abetment of suicide</small></a></nav>
+</main></div>
+
+<footer class="foot">
+  <div class="foot__in">
+    <span>Sanhita Atlas &middot; text of the Bharatiya Nyaya Sanhita, 2023 (Act 45 of 2023)</span>
+    <div class="foot__links">
+      <a href="../browse.html">All sections</a>
+      <a href="../chapters.html">Chapters</a>
+      <a href="../mapping.html">IPC to BNS</a>
+      <a href="../about.html">About</a>
+      <a href="https://www.indiacode.nic.in/" target="_blank" rel="noopener">India Code</a>
+    </div>
+    <span>Not legal advice &middot; verify against the Gazette</span>
+  </div>
+</footer>
+<style>[x-cloak]{display:none!important}</style>
+<script>document.addEventListener('alpine:init',function(){if(!Alpine.store('ui'))Alpine.store('ui',{drawer:false,search:false});});</script>
+</body>
+</html>

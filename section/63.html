@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Section 63 — Rape</title>
+<meta name="description" content="63. A man is said to commit “rape” if he— (a) penetrates his penis, to any extent, into the vagina, mouth, urethra or anus of a woman or makes her to …">
+<meta name="theme-color" content="#ffffff">
+<meta name="sa-base" content="../">
+<meta property="og:title" content="Section 63 — Rape">
+<meta property="og:description" content="63. A man is said to commit “rape” if he— (a) penetrates his penis, to any extent, into the vagina, mouth, urethra or anus of a woman or makes her to …">
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/app.css">
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js" defer></script>
+<script src="../assets/js/app.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js" defer></script>
+</head>
+<body>
+<header class="hdr">
+  <div class="hdr__in">
+    <button class="mbtn" id="menuBtn" aria-label="Open menu" x-data @click="$dispatch('toggle-drawer')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <a class="brand" href="../index.html"><svg class="brand__mark" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="1.4" y="1.4" width="21.2" height="21.2" rx="4" stroke="#9d174d" stroke-width="1.5"/><path d="M7 8h10M7 12h10M7 16h6" stroke="#14161a" stroke-width="1.6" stroke-linecap="round"/></svg><span>Sanhita Atlas</span><span class="brand__sub">BNS 2023</span></a>
+    <nav class="nav" aria-label="Primary"><a href="../index.html">Home</a><a href="../browse.html">Sections</a><a href="../chapters.html">Chapters</a><a href="../mapping.html">IPC to BNS</a><a href="../changes.html">What changed</a></nav>
+    <div class="hdr__act">
+      <button class="sbtn" x-data @click="$dispatch('open-search')" aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg><span>Search</span><kbd>/</kbd></button>
+    </div>
+  </div>
+</header>
+
+<div class="scrim" x-data @click="$dispatch('close-drawer')"></div>
+<aside class="drawer" id="drawer" aria-label="Menu">
+  <div class="drawer__top">
+    <a class="brand" href="../index.html"><svg class="brand__mark" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="1.4" y="1.4" width="21.2" height="21.2" rx="4" stroke="#9d174d" stroke-width="1.5"/><path d="M7 8h10M7 12h10M7 16h6" stroke="#14161a" stroke-width="1.6" stroke-linecap="round"/></svg><span>Sanhita Atlas</span></a>
+    <button class="drawer__x" x-data @click="$dispatch('close-drawer')" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <div class="drawer__body"><p class="drawer__k">Chapters</p><a class="drawer__a" href="../chapter/1.html">Preliminary<span>1–3</span></a><a class="drawer__a" href="../chapter/2.html">Punishments<span>4–13</span></a><a class="drawer__a" href="../chapter/3.html">General Exceptions<span>14–44</span></a><a class="drawer__a" href="../chapter/4.html">Abetment, Criminal Conspiracy and Attempt<span>45–62</span></a><a class="drawer__a" href="../chapter/5.html" aria-current="true">Offences against Woman and Child<span>63–99</span></a><a class="drawer__a" href="../chapter/6.html">Offences affecting the Human Body<span>100–146</span></a><a class="drawer__a" href="../chapter/7.html">Offences against the State<span>147–158</span></a><a class="drawer__a" href="../chapter/8.html">Offences relating to the Army, Navy and Air Force<span>159–168</span></a><a class="drawer__a" href="../chapter/9.html">Offences relating to Elections<span>169–177</span></a><a class="drawer__a" href="../chapter/10.html">Offences relating to Coin, Currency and Government Stamps<span>178–188</span></a><a class="drawer__a" href="../chapter/11.html">Offences against Public Tranquillity<span>189–197</span></a><a class="drawer__a" href="../chapter/12.html">Offences by or relating to Public Servants<span>198–205</span></a><a class="drawer__a" href="../chapter/13.html">Contempt of the Lawful Authority of Public Servants<span>206–226</span></a><a class="drawer__a" href="../chapter/14.html">False Evidence and Offences against Public Justice<span>227–269</span></a><a class="drawer__a" href="../chapter/15.html">Offences affecting Public Health, Safety, Decency and Morals<span>270–297</span></a><a class="drawer__a" href="../chapter/16.html">Offences relating to Religion<span>298–302</span></a><a class="drawer__a" href="../chapter/17.html">Offences against Property<span>303–334</span></a><a class="drawer__a" href="../chapter/18.html">Offences relating to Documents and Property Marks<span>335–350</span></a><a class="drawer__a" href="../chapter/19.html">Criminal Intimidation, Insult, Annoyance and Defamation<span>351–357</span></a><a class="drawer__a" href="../chapter/20.html">Repeal and Savings<span>358–358</span></a><p class="drawer__k">Reference</p><a class="drawer__a" href="../browse.html">All sections</a><a class="drawer__a" href="../mapping.html">IPC to BNS</a><a class="drawer__a" href="../changes.html">What changed</a><a class="drawer__a" href="../about.html">About</a></div>
+</aside>
+
+<div class="smodal" x-data="searchModal()" x-show="$store.ui.search" x-cloak
+     @open-search.window="open()" @keydown.escape.window="close()">
+  <div class="smodal__box" @click.outside="close()">
+    <div class="smodal__in">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg>
+      <input id="sq" type="search" placeholder="Search 358 sections by number, title or text"
+             autocomplete="off" x-model="q" @input.debounce.100ms="q = $event.target.value; run()"
+             @keydown.arrow-down.prevent="move(1)" @keydown.arrow-up.prevent="move(-1)"
+             @keydown.enter.prevent="go()">
+      <kbd>esc</kbd>
+    </div>
+    <div class="smodal__res">
+      <template x-if="!q"><p class="smodal__none">Type a section number, an offence, or a phrase from the text.</p></template>
+      <template x-if="q && !results.length"><p class="smodal__none">No match. Try a section number or a shorter phrase.</p></template>
+      <template x-for="(r,i) in results" :key="r.n">
+        <a :href="base+r.url" :class="i===sel ? 'sel' : ''" @mouseenter="sel=i" @click="close()">
+          <strong x-text="r.title"></strong><span x-text="r.context"></span>
+        </a>
+      </template>
+    </div>
+    <div class="smodal__foot"><span>&uarr;&darr; move &middot; &crarr; open</span><span x-text="results.length + ' results'"></span></div>
+  </div>
+</div>
+
+<div class="shell"><aside class="side"><p class="side__k">Chapter V &middot; Offences against Woman and Child</p><a class="side__a" href="../section/63.html" aria-current="true">63. Rape</a><a class="side__a" href="../section/64.html">64. Punishment for rape</a><a class="side__a" href="../section/65.html">65. Punishment for rape in certain cases</a><a class="side__a" href="../section/66.html">66. Punishment for causing death or resulting in persistent vegetative state of victim</a><a class="side__a" href="../section/67.html">67. Sexual intercourse by husband upon his wife during separation</a><a class="side__a" href="../section/68.html">68. Sexual intercourse by a person in authority</a><a class="side__a" href="../section/69.html">69. Sexual intercourse by employing deceitful means, etc</a><a class="side__a" href="../section/70.html">70. Gang rape</a><a class="side__a" href="../section/71.html">71. Punishment for repeat offenders</a><a class="side__a" href="../section/72.html">72. Disclosure of identity of victim of certain offences, etc</a><a class="side__a" href="../section/73.html">73. Printing or publishing any matter relating to Court proceedings without permission</a><a class="side__a" href="../section/74.html">74. Assault or use of criminal force to woman with intent to outrage her modesty</a><a class="side__a" href="../section/75.html">75. Sexual harassment</a><a class="side__a" href="../section/76.html">76. Assault or use of criminal force to woman with intent to disrobe</a><a class="side__a" href="../section/77.html">77. Voyeurism</a><a class="side__a" href="../section/78.html">78. Stalking</a><a class="side__a" href="../section/79.html">79. Word, gesture or act intended to insult modesty of a woman</a><a class="side__a" href="../section/80.html">80. Dowry death</a><a class="side__a" href="../section/81.html">81. Cohabitation caused by man deceitfully inducing belief of lawful marriage</a><a class="side__a" href="../section/82.html">82. Marrying again during lifetime of husband or wife</a><a class="side__a" href="../section/83.html">83. Marriage ceremony fraudulently gone through without lawful marriage</a><a class="side__a" href="../section/84.html">84. Enticing or taking away or detaining with criminal intent a married woman</a><a class="side__a" href="../section/85.html">85. Husband or relative of husband of a woman subjecting her to cruelty</a><a class="side__a" href="../section/86.html">86. Cruelty defined</a><a class="side__a" href="../section/87.html">87. Kidnapping, abducting or inducing woman to compel her marriage, etc</a><a class="side__a" href="../section/88.html">88. Causing miscarriage</a><a class="side__a" href="../section/89.html">89. Causing miscarriage without woman&#x27;s consent</a><a class="side__a" href="../section/90.html">90. Death caused by act done with intent to cause miscarriage</a><a class="side__a" href="../section/91.html">91. Act done with intent to prevent child being born alive or to cause to die after birth</a><a class="side__a" href="../section/92.html">92. Causing death of quick unborn child by act amounting to culpable homicide</a><a class="side__a" href="../section/93.html">93. Exposure and abandonment of child under twelve years of age, by parent or person having care of it</a><a class="side__a" href="../section/94.html">94. Concealment of birth by secret disposal of dead body</a><a class="side__a" href="../section/95.html">95. Hiring, employing or engaging a child to commit an offence</a><a class="side__a" href="../section/96.html">96. Procuration of child</a><a class="side__a" href="../section/97.html">97. Kidnapping or abducting child under ten years of age with intent to steal from its person</a><a class="side__a" href="../section/98.html">98. Selling child for purposes of prostitution, etc</a><a class="side__a" href="../section/99.html">99. Buying child for purposes of prostitution, etc</a><a class="side__a" href="../chapters.html" style="margin-top:.6rem;color:var(--muted)">All chapters &rarr;</a></aside><main class="content">
+<div class="crumbs"><a href="../index.html">Home</a><i>/</i><a href="../chapter/5.html">Chapter V</a><i>/</i><em>Section 63</em></div><span class="snum">Section 63</span><h1 class="stitle">Rape</h1><div class="pmeta"><span class="chip chip--mono">Chapter V</span><span class="chip chip--accent">IPC 375</span><span class="chip">Offences against Woman and Child</span></div><div class="statute sbody"><p>A man is said to commit “rape” if he—</p><p>(a) penetrates his penis, to any extent, into the vagina, mouth, urethra or anus of a woman or makes her to do so with him or any other person;</p><p>(b) inserts, to any extent, any object or a part of the body, not being the penis, into the vagina, the urethra or anus of a woman or makes her to do so with him or any other person;</p><p>(c) manipulates any part of the body of a woman so as to cause penetration into the vagina, urethra, anus or any part of body of such woman or makes her to do so with him or any other person;</p><p>(d) applies his mouth to the vagina, anus, urethra of a woman or makes her to do so with him or any other person, under the circumstances falling under any of the following seven descriptions:—</p><p>(i) against her will;</p><p>(ii) without her consent;</p><p>(iii) with her consent, when her consent has been obtained by putting her or any person in whom she is interested, in fear of death or of hurt;</p><p>(iv) with her consent, when the man knows that he is not her husband and that her consent is given because she believes that he is another man to whom she is or believes herself to be lawfully married;</p><p>(v) with her consent when, at the time of giving such consent, by reason of unsoundness of mind or intoxication or the administration by him personally or through another of any stupefying or unwholesome substance, she is unable to understand the nature and consequences of that to which she gives consent;</p><p>(vi) with or without her consent, when she is under eighteen years of age;</p><p>(vii) when she is unable to communicate consent.</p><p>Explanation 1.—For the purposes of this section, “vagina” shall also include labia majora.</p><p>Explanation 2.—Consent means an unequivocal voluntary agreement when the woman by words, gestures or any form of verbal or non-verbal communication, communicates willingness to participate in the specific sexual act: Provided that a woman who does not physically resist to the act of penetration shall not by the reason only of that fact, be regarded as consenting to the sexual activity. Exception 1.––A medical procedure or intervention shall not constitute rape. Exception 2.––Sexual intercourse or sexual acts by a man with his own wife, the wife not being under eighteen years of age, is not rape.</p></div><div class="note"><p>Text extracted from the Gazette notification of 25 December 2023 and reformatted for reading. Check the official copy before relying on it.</p></div><nav class="pager"><a class="pg pg--prev" href="../section/62.html"><span>Previous</span><strong>Section 62</strong><small>Punishment for attempting to commit offences punishable with imprisonment for life or other imprisonment</small></a><a class="pg pg--next" href="../section/64.html"><span>Next</span><strong>Section 64</strong><small>Punishment for rape</small></a></nav>
+</main></div>
+
+<footer class="foot">
+  <div class="foot__in">
+    <span>Sanhita Atlas &middot; text of the Bharatiya Nyaya Sanhita, 2023 (Act 45 of 2023)</span>
+    <div class="foot__links">
+      <a href="../browse.html">All sections</a>
+      <a href="../chapters.html">Chapters</a>
+      <a href="../mapping.html">IPC to BNS</a>
+      <a href="../about.html">About</a>
+      <a href="https://www.indiacode.nic.in/" target="_blank" rel="noopener">India Code</a>
+    </div>
+    <span>Not legal advice &middot; verify against the Gazette</span>
+  </div>
+</footer>
+<style>[x-cloak]{display:none!important}</style>
+<script>document.addEventListener('alpine:init',function(){if(!Alpine.store('ui'))Alpine.store('ui',{drawer:false,search:false});});</script>
+</body>
+</html>
