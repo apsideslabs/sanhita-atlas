@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BNSS — Sanhita Atlas</title>
+<meta name="description" content="The Bharatiya Nagarik Suraksha Sanhita, 2023: FIR, arrest, bail and trial timelines.">
+<meta name="theme-color" content="#101a16">
+<meta property="og:title" content="BNSS — Sanhita Atlas">
+<meta property="og:description" content="The Bharatiya Nagarik Suraksha Sanhita, 2023: FIR, arrest, bail and trial timelines.">
+<meta property="og:type" content="website">
+<meta name="sa-base" content="../">
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/app.css">
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js" defer></script>
+<script src="../assets/js/app.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js" defer></script>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr__in">
+    <button class="hdr__menu" id="menuBtn" aria-expanded="false" aria-controls="drawer"
+            aria-label="Open menu" x-data @click="$dispatch('toggle-drawer')">
+      <svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span>Menu</span>
+    </button>
+    <a class="brand" href="../index.html"><svg class="brand__mark" viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect x="1.2" y="1.2" width="29.6" height="29.6" rx="7.5" stroke="#b07d2a" stroke-width="1.6"/><path d="M9 11h14M9 16h14M9 21h8" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg><span>Sanhita <span style="color:#e0b062">Atlas</span></span>
+      <span class="brand__sub">BNS 2023</span></a>
+    <nav class="hdr__nav" aria-label="Primary"><a href="../bns/index.html">The Sanhita</a><a href="../bns/mapping.html">Comparison</a><a href="../procedure/bnss.html" aria-current="true">Procedure</a><a href="../research/index.html">Research</a></nav>
+    <button class="hdr__search" aria-label="Search" x-data @click="$dispatch('open-search')">
+      <svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg><span>Search</span><kbd>/</kbd>
+    </button>
+  </div>
+</header>
+
+<div class="scrim" id="scrim" x-data @click="$dispatch('close-drawer')"></div>
+
+<aside class="drawer" id="drawer" aria-label="Site menu" aria-hidden="true"
+       x-data x-bind:class="$store.ui.drawer ? '' : ''">
+  <div class="drawer__top">
+    <span class="drawer__brand"><svg class="brand__mark" viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect x="1.2" y="1.2" width="29.6" height="29.6" rx="7.5" stroke="#b07d2a" stroke-width="1.6"/><path d="M9 11h14M9 16h14M9 21h8" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg> Sanhita Atlas</span>
+    <button class="drawer__x" aria-label="Close menu" x-data @click="$dispatch('close-drawer')">
+      <svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <div class="drawer__body"><div class="drawer__group"><a class="drawer__link" href="../index.html">Home</a></div><div class="drawer__group"><p class="drawer__label">The Sanhita</p><a class="drawer__link" href="../bns/index.html">Overview</a><a class="drawer__link" href="../bns/chapters.html">Chapters</a><a class="drawer__link" href="../bns/sections.html">Section index</a><a class="drawer__link" href="../bns/punishments.html">Punishments</a></div><div class="drawer__group"><p class="drawer__label">Comparison</p><a class="drawer__link" href="../bns/mapping.html">IPC to BNS</a><a class="drawer__link" href="../bns/changes.html">What changed</a></div><div class="drawer__group"><p class="drawer__label">Procedure</p><a class="drawer__link" href="../procedure/bnss.html" aria-current="true">BNSS</a><a class="drawer__link" href="../procedure/bsa.html">Evidence Act</a></div><div class="drawer__group"><p class="drawer__label">Project</p><a class="drawer__link" href="../research/index.html">Methodology</a><a class="drawer__link" href="../about.html">About</a></div></div>
+  <div class="drawer__foot">Reference edition &middot; October 2026<br>Not legal advice.</div>
+</aside>
+
+<div class="smodal" id="smodal" x-data="searchModal()" x-show="$store.ui.search" x-cloak
+     @open-search.window="open()" @keydown.escape.window="close()">
+  <div class="smodal__box" @click.outside="close()">
+    <div class="smodal__in">
+      <svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg>
+      <input id="sq" type="search" placeholder="Search sections, offences, chapters" autocomplete="off"
+             x-model="q" @input.debounce.120ms="q = $event.target.value; run()" @keydown.arrow-down.prevent="move(1)"
+             @keydown.arrow-up.prevent="move(-1)" @keydown.enter.prevent="go()" x-ref="inp">
+      <kbd>esc</kbd>
+    </div>
+    <div class="smodal__res">
+      <template x-if="!q">
+        <p class="smodal__none">Search 150+ sections, offences and chapters of the Sanhita.</p>
+      </template>
+      <template x-if="q && !results.length">
+        <p class="smodal__none">No match. Try a section number, an offence or a chapter.</p>
+      </template>
+      <template x-for="(r,i) in results" :key="r.url+r.title">
+        <a :href="base+r.url" :class="i===sel ? 'sel' : ''" @mouseenter="sel=i" @click="close()">
+          <strong x-text="r.title"></strong>
+          <span x-text="r.context"></span>
+        </a>
+      </template>
+    </div>
+    <div class="smodal__foot"><span>&uarr;&darr; move &middot; &crarr; open</span><span x-text="results.length + ' results'"></span></div>
+  </div>
+</div>
+
+<div class="shell"><aside class="side"><div class="side__grp"><p class="side__k">The Sanhita</p><a class="side__a" href="../bns/index.html">Overview</a><a class="side__a" href="../bns/chapters.html">Chapters</a><a class="side__a" href="../bns/sections.html">Section index</a><a class="side__a" href="../bns/punishments.html">Punishments</a></div><div class="side__grp"><p class="side__k">Comparison</p><a class="side__a" href="../bns/mapping.html">IPC to BNS</a><a class="side__a" href="../bns/changes.html">What changed</a></div><div class="side__grp"><p class="side__k">Procedure</p><a class="side__a" href="../procedure/bnss.html" aria-current="true">BNSS</a><a class="side__a" href="../procedure/bsa.html">Evidence Act</a></div><div class="side__grp"><p class="side__k">Project</p><a class="side__a" href="../research/index.html">Methodology</a><a class="side__a" href="../about.html">About</a></div></aside>
+<main class="content" id="main">
+<div class="phead"><nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a><i>/</i><em>Procedure</em></nav><h1>Bharatiya Nagarik Suraksha Sanhita, 2023</h1><p class="phead__lede">The procedure code that replaced the CrPC on 1 July 2024. It governs arrest, investigation, bail and trial — and it is where most of the practical change for a client actually sits.</p><div class="pmeta"><span class="chip chip--ok">In force 1 July 2024</span><span class="chip chip--mono">Act No. 46 of 2023</span></div></div>
+<div class="prose">
+<p>The BNSS is the companion statute to the Sanhita: the Sanhita defines the offence, the BNSS supplies the
+machinery. Its stated aim is time-bound investigation and trial, and much of the drafting is directed at delay
+rather than at substantive rights.</p>
+</div>
+
+<h2 class="sh">The anchors that matter</h2>
+<div class="tw"><div class="tw__scroll"><table>
+  <thead><tr><th style="width:100px">Section</th><th style="width:270px">Provision</th><th>What it does</th></tr></thead>
+  <tbody><tr><td class="sec-n">173</td><td><strong>FIR, including a Zero FIR</strong></td><td style="color:var(--muted)">Information in a cognizable case is recorded electronically or otherwise; a Zero FIR can be lodged at any police station regardless of jurisdiction, and an e-FIR is permitted for specified offences.</td></tr><tr><td class="sec-n">173(3)</td><td><strong>Preliminary enquiry</strong></td><td style="color:var(--muted)">For offences punishable between three and seven years, a police officer may conduct a preliminary enquiry within fourteen days to decide whether a prima facie case exists.</td></tr><tr><td class="sec-n">35</td><td><strong>Arrest</strong></td><td style="color:var(--muted)">Arrest without warrant, with the notice-of-appearance regime for offences punishable with less than seven years, and the requirement to display the officer&#x27;s identity.</td></tr><tr><td class="sec-n">187</td><td><strong>Remand</strong></td><td style="color:var(--muted)">Production before a magistrate within twenty-four hours and the authorisation of further detention during investigation.</td></tr><tr><td class="sec-n">193</td><td><strong>Report on completion of investigation</strong></td><td style="color:var(--muted)">The charge sheet, with a mandatory timeline for completing the investigation in specified cases.</td></tr><tr><td class="sec-n">480</td><td><strong>Bail in non-bailable offences</strong></td><td style="color:var(--muted)">The discretionary bail power, with special protection for a person under trial who has served half the maximum sentence.</td></tr><tr><td class="sec-n">483</td><td><strong>Special powers of the High Court and Sessions Court</strong></td><td style="color:var(--muted)">The superior courts&#x27; power to grant bail, and to direct that a person be released on a bond.</td></tr></tbody>
+</table></div></div>
+
+<h2 class="sh">What changes for a client</h2>
+<div class="grid grid--3">
+  <div class="card"><div class="card__b"><span class="card__k">Filing</span><h3>Zero FIR and e-FIR</h3>
+    <p>A first information report can be filed at any police station regardless of where the offence happened, and
+    transmitted to the station with jurisdiction. Electronic filing is expressly permitted.</p></div></div>
+  <div class="card"><div class="card__b"><span class="card__k">Arrest</span><h3>Notice instead of arrest</h3>
+    <p>For offences punishable with less than seven years, the officer must ordinarily issue a notice of appearance
+    rather than arrest — codifying the <em>Arnesh Kumar</em> guidelines.</p></div></div>
+  <div class="card"><div class="card__b"><span class="card__k">Bail</span><h3>Half the sentence served</h3>
+    <p>An undertrial who has served half the maximum sentence for a non-bailable offence is entitled to be released
+    on bond, subject to the exceptions in the section.</p></div></div>
+</div>
+
+<div class="callout callout--warn">
+  <div>
+    <h4>Verify before relying</h4>
+    <p>The BNSS has been amended and supplemented by rules and notifications since commencement, and several
+    provisions are being implemented in phases. Check the current text on India Code.</p>
+  </div>
+</div>
+
+</main>
+</div>
+
+<footer class="ftr">
+  <div class="ftr__in">
+    <div class="ftr__grid">
+      <div>
+        <div class="ftr__brand"><svg class="brand__mark" viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect x="1.2" y="1.2" width="29.6" height="29.6" rx="7.5" stroke="#b07d2a" stroke-width="1.6"/><path d="M9 11h14M9 16h14M9 21h8" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg> Sanhita Atlas</div>
+        <p>An independent research platform for the Bharatiya Nyaya Sanhita, 2023 — the structure, the
+        correspondence with the IPC, and what changed on 1 July 2024.</p>
+      </div>
+      <div>
+        <h4>The Sanhita</h4>
+        <ul>
+          <li><a href="../bns/index.html">Overview</a></li>
+          <li><a href="../bns/chapters.html">Chapters</a></li>
+          <li><a href="../bns/sections.html">Section index</a></li>
+          <li><a href="../bns/punishments.html">Punishments</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Comparison</h4>
+        <ul>
+          <li><a href="../bns/mapping.html">IPC to BNS</a></li>
+          <li><a href="../bns/changes.html">What changed</a></li>
+          <li><a href="../procedure/bnss.html">BNSS</a></li>
+          <li><a href="../procedure/bsa.html">Evidence Act</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Project</h4>
+        <ul>
+          <li><a href="../research/index.html">Methodology</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="https://www.indiacode.nic.in/" target="_blank" rel="noopener">India Code</a></li>
+          <li><a href="https://github.com/apsideslabs/sanhita-atlas" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ftr__base">
+      <span>Compiled 29 October 2026 &middot; Act No. 45 of 2023</span>
+      <span>Independent research &middot; not legal advice</span>
+    </div>
+  </div>
+</footer>
+
+<style>[x-cloak]{display:none!important}</style>
+</body>
+</html>
