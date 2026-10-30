@@ -2,7 +2,7 @@
 (function () {
   'use strict';
 
-  var DATA = null, FUSE = null, CH = {}, SECS = [];
+  var DATA = null, RULES = null, FUSE = null, CH = {}, SECS = [];
   var view = document.getElementById('view');
   var store = {
     get: function (k, d) { try { return JSON.parse(localStorage.getItem('sa:' + k)) || d; } catch (e) { return d; } },
@@ -10,6 +10,8 @@
   };
   var saved = store.get('saved', []);
   var last = store.get('last', null);
+  var answers = store.get('answers', {});
+  var SCEN = {};
 
   var IC = {
     home: '<path d="M4 10.5L12 4l8 6.5V20H4z"/><path d="M9.5 20v-5h5v5"/>',
@@ -45,7 +47,13 @@
 
   /* ── data ───────────────────────────────────────────────────────────── */
   function load() {
-    return fetch('assets/data/sections.json').then(function (r) { return r.json(); }).then(function (d) {
+    return Promise.all([
+      fetch('assets/data/sections.json').then(function (r) { return r.json(); }),
+      fetch('assets/data/rules.json').then(function (r) { return r.json(); })
+    ]).then(function (both) {
+      var d = both[0];
+      RULES = both[1].scenarios;
+      RULES.forEach(function (x) { SCEN[x.id] = x; });
       DATA = d; SECS = d.sections;
       d.chapters.forEach(function (c) { CH[c.n] = c; });
       if (window.Fuse) {
@@ -68,7 +76,10 @@
   function route() {
     var r = parse();
     var html = '';
-    if (r.name === 'section' && r.arg) html = vSection(+r.arg);
+    if (r.name === 'check' && r.arg) html = vQuiz(r.arg);
+    else if (r.name === 'result' && r.arg) html = vResult(r.arg);
+    else if (r.name === 'check') html = vCheck();
+    else if (r.name === 'section' && r.arg) html = vSection(+r.arg);
     else if (r.name === 'chapter' && r.arg) html = vChapter(+r.arg);
     else if (r.name === 'browse') html = vBrowse();
     else if (r.name === 'saved') html = vSaved();
@@ -78,7 +89,7 @@
     document.querySelectorAll('[data-tab]').forEach(function (t) {
       var n = t.getAttribute('data-tab');
       var on = (n === 'home' && (r.name === 'home' || r.name === 'section' || r.name === 'chapter')) ||
-        n === r.name;
+        (n === 'check' && (r.name === 'check' || r.name === 'result')) || n === r.name;
       t.classList.toggle('on', on);
     });
     window.scrollTo(0, 0);
@@ -92,6 +103,21 @@
         chip = c.getAttribute('data-chip');
         view.querySelectorAll('[data-chip]').forEach(function (x) { x.classList.toggle('on', x === c); });
         paintList();
+      });
+    });
+    view.querySelectorAll('[data-ans]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var k = b.getAttribute('data-ans'), v = b.getAttribute('data-v');
+        var sid = b.getAttribute('data-sid');
+        answers[sid] = answers[sid] || {};
+        answers[sid][k] = (answers[sid][k] === v) ? undefined : v;
+        if (!answers[sid][k]) delete answers[sid][k];
+        store.set('answers', answers);
+        b.parentNode.querySelectorAll('[data-ans]').forEach(function (x) {
+          x.classList.toggle('on', answers[sid][k] === x.getAttribute('data-v'));
+        });
+        var c = document.getElementById('answered');
+        if (c) c.textContent = countAns(sid) + ' of ' + SCEN[sid].qs.length + ' answered';
       });
     });
     if (r.name === 'section') {
@@ -121,8 +147,8 @@
       '<h1>The penal code, <em>annotated</em>.</h1>' +
       '<p>All 358 sections with the text, an explanation, a worked example and the case law that still governs it.</p>' +
       '<div class="hero__act">' +
-      '<a class="btn btn--primary" href="#/browse">Browse sections</a>' +
-      '<a class="btn btn--ghost" href="#/section/103">s. 103 &rarr;</a>' +
+      '<a class="btn btn--primary" href="#/check">Check a situation</a>' +
+      '<a class="btn btn--ghost" href="#/browse">Browse sections</a>' +
       '</div>' +
       '<div class="hstats">' +
       '<div class="hstat"><b>358</b><span>Sections</span></div>' +
@@ -130,6 +156,12 @@
       '<div class="hstat"><b>21</b><span>Annotated</span></div>' +
       '<div class="hstat"><b>37</b><span>IPC maps</span></div>' +
       '</div></div></section>' +
+      '<div class="sect"><div class="sect__head"><h2>Situation check</h2>' +
+      '<a href="#/check">Open</a></div>' +
+      '<a class="tile" href="#/check" style="--lc:#7a1f3d;display:flex;gap:.8rem;align-items:center">' +
+      '<span class="tile__ic" style="margin:0">' + ic('scale') + '</span>' +
+      '<span><h3 style="margin:0">Which sections apply to my facts?</h3>' +
+      '<p style="margin:.15rem 0 0">Answer fixed questions, get a rule-by-rule answer with references.</p></span></a></div>' +
       (cont ? '<div class="sect"><div class="sect__head"><h2>Continue reading</h2></div>' +
         '<a class="row" href="#/section/' + cont.n + '">' +
         '<span class="row__n">' + cont.n + '</span><span class="row__t">' + esc(cont.t) + '</span>' +
@@ -246,6 +278,141 @@
       '</div>' +
       '<div class="note">Text extracted from the Gazette notification of 25 December 2023. Check the official ' +
       'copy before relying on it.</div>';
+  }
+
+  function countAns(id) {
+    var a = answers[id] || {};
+    return Object.keys(a).filter(function (k) { return a[k]; }).length;
+  }
+
+  function vCheck() {
+    var cards = RULES.map(function (sc) {
+      var n = countAns(sc.id);
+      return '<a class="tile" href="#/check/' + sc.id + '" style="--lc:' + sc.c + '">' +
+        '<span class="tile__k"><span class="dot" style="background:' + sc.c + '"></span>' +
+        sc.rules.length + ' rules</span>' +
+        '<h3>' + esc(sc.t) + '</h3><p>' + esc(sc.d) + '</p>' +
+        (n ? '<p style="color:' + sc.c + ';font-weight:800;font-size:.68rem;margin-top:.35rem">' +
+          n + ' answers saved</p>' : '') + '</a>';
+    }).join('');
+    return '<h1 style="margin:0 0 .35rem">Check a situation</h1>' +
+      '<p style="color:var(--dim);font-size:.88rem;margin:0 0 1.1rem;max-width:44ch">' +
+      'Answer a few factual questions. The engine applies fixed rules to the facts you select and shows which ' +
+      'sections of the Sanhita may apply — with the reason for each.</p>' +
+      '<div class="engine-note">' + ic('scale') + '<div><b>How it works</b>' +
+      '<span>Every rule is a fixed condition over your answers — no guessing, no model. ' +
+      'You can see exactly why a section was matched.</span></div></div>' +
+      '<div class="grid" style="margin-top:.9rem">' + cards + '</div>';
+  }
+
+  function vQuiz(id) {
+    var sc = SCEN[id];
+    if (!sc) return vCheck();
+    var a = answers[id] || {};
+    var qs = sc.qs.map(function (q, i) {
+      var v = a[q.id] || '';
+      return '<div class="q"><div class="q__t"><span class="q__n">' + (i + 1) + '</span>' +
+        '<div><p class="q__q">' + esc(q.q) + '</p>' +
+        (q.h ? '<p class="q__h">' + esc(q.h) + '</p>' : '') + '</div></div>' +
+        '<div class="seg">' +
+        ['yes', 'no', 'unsure'].map(function (o) {
+          return '<button class="seg__b' + (v === o ? ' on' : '') + '" data-ans="' + q.id +
+            '" data-v="' + o + '" data-sid="' + id + '">' +
+            (o === 'yes' ? 'Yes' : o === 'no' ? 'No' : 'Not sure') + '</button>';
+        }).join('') + '</div></div>';
+    }).join('');
+    return '<a class="btn btn--light btn--sm" href="#/check" style="margin-bottom:.9rem">' +
+      ic('back') + ' All checks</a>' +
+      '<h1 style="margin:0 0 .3rem">' + esc(sc.t) + '</h1>' +
+      '<p style="color:var(--dim);font-size:.85rem;margin:0 0 .9rem">' + esc(sc.d) + '</p>' +
+      '<p class="count" id="answered">' + countAns(id) + ' of ' + sc.qs.length + ' answered</p>' +
+      '<div class="qs">' + qs + '</div>' +
+      '<div class="sticky-cta"><a class="btn btn--primary" style="width:100%" href="#/result/' + id + '">' +
+      'See what applies ' + ic('chev') + '</a></div>';
+  }
+
+  function vResult(id) {
+    var sc = SCEN[id];
+    if (!sc) return vCheck();
+    var a = answers[id] || {};
+    var hits = [], near = [];
+    sc.rules.forEach(function (r) {
+      var keys = Object.keys(r.all || {});
+      var bad = keys.filter(function (k) { return a[k] !== r.all[k]; });
+      var blocked = Object.keys(r.unless || {}).some(function (k) { return a[k] === 'yes'; });
+      if (blocked) return;
+      if (!bad.length) hits.push({ r: r, n: keys.length });
+      else if (bad.length === 1 && !a[bad[0]]) near.push({ r: r, miss: bad[0], n: keys.length });
+    });
+    // a more specific rule supersedes the general one it sits inside
+    var fired = {};
+    hits.forEach(function (h) { fired[h.r.s] = 1; });
+    hits = hits.filter(function (h) {
+      return !(h.r.sup || []).some(function (x) { return fired[x] && x !== h.r.s; });
+    });
+    hits.sort(function (x, y) { return y.n - x.n || x.r.s - y.r.s; });
+    var seen = {}, out = [];
+    hits.forEach(function (h) {
+      if (seen[h.r.s]) return; seen[h.r.s] = 1; out.push(h);
+    });
+    near = near.filter(function (h) { return !seen[h.r.s]; }).slice(0, 4);
+
+    if (!out.length) {
+      return '<a class="btn btn--light btn--sm" href="#/check/' + id + '" style="margin-bottom:.9rem">' +
+        ic('back') + ' Change answers</a>' +
+        '<div class="empty">' + ic('scale') + '<h3>No rule matched those facts</h3>' +
+        '<p>Nothing in this check applies on the answers given. Go back and add detail — ' +
+        'or browse the sections directly.</p>' +
+        '<a class="btn btn--light btn--sm" style="margin-top:1rem" href="#/browse">Browse sections</a></div>';
+    }
+
+    var cards = out.map(function (h) {
+      var sec = SECS.filter(function (x) { return x.n === h.r.s; })[0];
+      if (!sec) return '';
+      var because = Object.keys(h.r.all).filter(function (k) {
+        return a[k] === h.r.all[k];
+      }).map(function (k) {
+        var q = sc.qs.filter(function (x) { return x.id === k; })[0];
+        return '<li>' + esc(q ? q.q : k) + '</li>';
+      }).join('');
+      return '<article class="hit" style="--hc:' + sec.col + '">' +
+        '<div class="hit__top"><span class="hit__n">' + sec.n + '</span>' +
+        '<div><h3>' + esc(sec.t) + '</h3>' +
+        '<span class="hit__ch">Chapter ' + sec.cr + ' &middot; ' + esc(sec.ct) + '</span></div></div>' +
+        '<p class="hit__why">' + esc(h.r.why) + '</p>' +
+        '<div class="hit__b"><span class="block__k" style="margin:0 0 .4rem">Because you said</span>' +
+        '<ul class="because">' + because + '</ul></div>' +
+        (sec.pun ? '<div class="hit__p"><b>Punishment</b> ' + esc(sec.pun) + '</div>' : '') +
+        '<div class="hit__act">' +
+        '<a class="btn btn--light btn--sm" href="#/section/' + sec.n + '">Read s. ' + sec.n + '</a>' +
+        (sec.ipc && sec.ipc !== '—' ? '<span class="pill pill--m">IPC ' + esc(sec.ipc) + '</span>' : '') +
+        '</div></article>';
+    }).join('');
+
+    var nearHtml = near.length ? '<div class="sect"><div class="sect__head"><h2>Could also apply</h2></div>' +
+      near.map(function (h) {
+        var sec = SECS.filter(function (x) { return x.n === h.r.s; })[0];
+        var q = sc.qs.filter(function (x) { return x.id === h.miss; })[0];
+        return '<a class="row row--wrap" href="#/section/' + h.r.s + '">' +
+          '<span class="row__n" style="color:' + (sec ? sec.col : 'var(--brand)') + '">' + h.r.s + '</span>' +
+          '<span class="row__t">' + esc(sec ? sec.t : '') +
+          '<span style="display:block;font-weight:500;color:var(--dim);font-size:.72rem">' +
+          'Answer “' + esc(q ? q.q : h.miss) + '” to include this</span></span>' +
+          '<span class="row__chev">' + ic('chev') + '</span></a>';
+      }).join('') + '</div>' : '';
+
+    return '<a class="btn btn--light btn--sm" href="#/check/' + id + '" style="margin-bottom:.9rem">' +
+      ic('back') + ' Change answers</a>' +
+      '<h1 style="margin:0 0 .3rem">' + out.length + ' provision' + (out.length === 1 ? '' : 's') +
+      ' may apply</h1>' +
+      '<p style="color:var(--dim);font-size:.85rem;margin:0 0 .2rem">' + esc(sc.t) + ' &middot; ' +
+      countAns(id) + ' of ' + sc.qs.length + ' questions answered</p>' +
+      '<p class="count" style="margin:.6rem 0 1rem">Rules applied: ' + out.length + ' matched, ' +
+      near.length + ' partial</p>' + cards + nearHtml +
+      '<div class="disclaimer">' + ic('more') + '<div><b>This is a screening tool, not advice</b>' +
+      '<span>The engine applies fixed rules to the facts you selected. It cannot know what you left out, ' +
+      'and it does not weigh evidence, defences or procedure. Every provision links to its full text — ' +
+      'read it, and speak to a lawyer before acting.</span></div></div>';
   }
 
   function vSaved() {

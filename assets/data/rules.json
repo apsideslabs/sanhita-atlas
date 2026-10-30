@@ -1,0 +1,706 @@
+{
+ "scenarios": [
+  {
+   "id": "property",
+   "t": "Property and money",
+   "c": "#065f46",
+   "d": "Something was taken, kept, obtained by deception, damaged or forged.",
+   "qs": [
+    {
+     "id": "took",
+     "q": "Was property or money taken, kept or obtained from someone?",
+     "h": ""
+    },
+    {
+     "id": "movable",
+     "q": "Was it movable property — cash, phone, vehicle, goods?",
+     "h": "Land and buildings are immovable; taking them is usually a civil matter."
+    },
+    {
+     "id": "noconsent",
+     "q": "Was it taken without the owner's consent?",
+     "h": ""
+    },
+    {
+     "id": "dishonest",
+     "q": "Did the person intend to keep it or use it dishonestly?",
+     "h": ""
+    },
+    {
+     "id": "snatch",
+     "q": "Was it seized suddenly or forcibly from the person — a chain, a bag, a phone?",
+     "h": ""
+    },
+    {
+     "id": "force",
+     "q": "Was force used, or fear of immediate hurt caused, at the time of taking?",
+     "h": ""
+    },
+    {
+     "id": "five",
+     "q": "Were five or more people involved together?",
+     "h": ""
+    },
+    {
+     "id": "threat",
+     "q": "Was the property handed over because of a threat of future harm?",
+     "h": ""
+    },
+    {
+     "id": "entrust",
+     "q": "Had the property been entrusted to the person — for safekeeping, carriage, or as an employee or agent?",
+     "h": ""
+    },
+    {
+     "id": "deceive",
+     "q": "Was the owner deceived by false facts or a false promise, and handed over property because of it?",
+     "h": ""
+    },
+    {
+     "id": "trespass",
+     "q": "Did someone enter a building, premises or vehicle intending to commit an offence?",
+     "h": ""
+    },
+    {
+     "id": "forge",
+     "q": "Was a document, signature or electronic record forged or altered?",
+     "h": ""
+    },
+    {
+     "id": "damage",
+     "q": "Was property destroyed or damaged?",
+     "h": ""
+    }
+   ],
+   "rules": [
+    {
+     "s": 303,
+     "all": {
+      "took": "yes",
+      "movable": "yes",
+      "noconsent": "yes",
+      "dishonest": "yes"
+     },
+     "why": "Movable property was taken out of another's possession without consent, with a dishonest intention.",
+     "sup": [
+      304,
+      309,
+      310
+     ]
+    },
+    {
+     "s": 304,
+     "all": {
+      "took": "yes",
+      "movable": "yes",
+      "noconsent": "yes",
+      "dishonest": "yes",
+      "snatch": "yes"
+     },
+     "why": "The taking was sudden or forcible from the person — the additional element that makes it snatching."
+    },
+    {
+     "s": 309,
+     "all": {
+      "took": "yes",
+      "force": "yes"
+     },
+     "why": "Force, or the fear of immediate hurt, was used in order to take the property — robbery rather than theft.",
+     "sup": [
+      310
+     ]
+    },
+    {
+     "s": 310,
+     "all": {
+      "took": "yes",
+      "force": "yes",
+      "five": "yes"
+     },
+     "why": "Robbery committed by five or more persons together is dacoity."
+    },
+    {
+     "s": 308,
+     "all": {
+      "threat": "yes"
+     },
+     "why": "Property was delivered because of a threat of injury — extortion, even if no force was used at the time.",
+     "sup": [
+      309,
+      310
+     ]
+    },
+    {
+     "s": 316,
+     "all": {
+      "entrust": "yes",
+      "dishonest": "yes"
+     },
+     "why": "Property that had been entrusted was misappropriated — criminal breach of trust rather than theft."
+    },
+    {
+     "s": 314,
+     "all": {
+      "took": "yes",
+      "dishonest": "yes"
+     },
+     "unless": {
+      "entrust": "yes",
+      "deceive": "yes"
+     },
+     "why": "Property belonging to another was dishonestly converted to the person's own use.",
+     "sup": [
+      316,
+      318,
+      303,
+      304
+     ]
+    },
+    {
+     "s": 318,
+     "all": {
+      "deceive": "yes",
+      "took": "yes"
+     },
+     "why": "A deception induced the delivery of property — cheating."
+    },
+    {
+     "s": 329,
+     "all": {
+      "trespass": "yes"
+     },
+     "why": "Entry into property in another's possession with intent to commit an offence is criminal trespass."
+    },
+    {
+     "s": 336,
+     "all": {
+      "forge": "yes"
+     },
+     "why": "A false document or electronic record was made — forgery."
+    },
+    {
+     "s": 324,
+     "all": {
+      "damage": "yes"
+     },
+     "why": "Property was destroyed or its value diminished — mischief."
+    }
+   ]
+  },
+  {
+   "id": "violence",
+   "t": "Violence and injury",
+   "c": "#b91c1c",
+   "d": "Force was used against a person, and someone was hurt, threatened or killed.",
+   "qs": [
+    {
+     "id": "force",
+     "q": "Was physical force used against a person?",
+     "h": ""
+    },
+    {
+     "id": "injury",
+     "q": "Was anyone injured?",
+     "h": ""
+    },
+    {
+     "id": "grievous",
+     "q": "Was the injury serious — a fracture, permanent loss of sight or hearing, or an injury endangering life?",
+     "h": "Section 117 lists the eight categories of grievous hurt."
+    },
+    {
+     "id": "weapon",
+     "q": "Was a weapon or other dangerous means used?",
+     "h": ""
+    },
+    {
+     "id": "death",
+     "q": "Did anyone die?",
+     "h": ""
+    },
+    {
+     "id": "intent",
+     "q": "Was there an intention to cause death, or knowledge that death was likely?",
+     "h": ""
+    },
+    {
+     "id": "negligent",
+     "q": "Was the act rash or negligent rather than deliberate?",
+     "h": ""
+    },
+    {
+     "id": "attempt",
+     "q": "Did the act fall short — an attempt rather than a completed act?",
+     "h": ""
+    },
+    {
+     "id": "threat",
+     "q": "Was anyone threatened with injury to person, reputation or property?",
+     "h": ""
+    },
+    {
+     "id": "defence",
+     "q": "Was the person acting to defend themselves or another from an attack?",
+     "h": ""
+    }
+   ],
+   "rules": [
+    {
+     "s": 103,
+     "all": {
+      "death": "yes",
+      "intent": "yes"
+     },
+     "why": "Death was caused with the intention of causing death, or with knowledge that it was likely — murder, punishable under s. 103."
+    },
+    {
+     "s": 105,
+     "all": {
+      "death": "yes"
+     },
+     "unless": {
+      "intent": "yes"
+     },
+     "why": "Death was caused without the intention or knowledge that makes it murder — culpable homicide not amounting to murder.",
+     "sup": [
+      103
+     ]
+    },
+    {
+     "s": 106,
+     "all": {
+      "death": "yes",
+      "negligent": "yes"
+     },
+     "why": "Death was caused by a rash or negligent act rather than a deliberate one.",
+     "sup": [
+      103,
+      105
+     ]
+    },
+    {
+     "s": 109,
+     "all": {
+      "attempt": "yes",
+      "intent": "yes"
+     },
+     "why": "The act fell short of death but was done with the intention or knowledge required for murder — attempt to murder.",
+     "sup": [
+      103
+     ]
+    },
+    {
+     "s": 117,
+     "all": {
+      "injury": "yes",
+      "grievous": "yes"
+     },
+     "why": "The injury caused falls within the categories of grievous hurt.",
+     "sup": [
+      118,
+      119,
+      103,
+      105,
+      109
+     ]
+    },
+    {
+     "s": 119,
+     "all": {
+      "injury": "yes",
+      "grievous": "yes",
+      "weapon": "yes"
+     },
+     "why": "Grievous hurt was caused by a dangerous weapon or means — the aggravated form.",
+     "sup": [
+      103,
+      105,
+      109
+     ]
+    },
+    {
+     "s": 115,
+     "all": {
+      "injury": "yes"
+     },
+     "why": "Bodily pain, disease or infirmity was caused — hurt.",
+     "sup": [
+      117,
+      118,
+      119,
+      103,
+      105,
+      109
+     ]
+    },
+    {
+     "s": 118,
+     "all": {
+      "injury": "yes",
+      "weapon": "yes"
+     },
+     "why": "Hurt was caused with an instrument for shooting, stabbing or cutting, or other dangerous means.",
+     "sup": [
+      119,
+      103,
+      105,
+      109
+     ]
+    },
+    {
+     "s": 351,
+     "all": {
+      "threat": "yes"
+     },
+     "unless": {
+      "injury": "yes"
+     },
+     "why": "A threat of injury was made with intent to cause alarm or to compel an act — criminal intimidation.",
+     "sup": [
+      103,
+      105,
+      115,
+      117
+     ]
+    },
+    {
+     "s": 34,
+     "all": {
+      "defence": "yes"
+     },
+     "why": "Force used in private defence is not an offence at all — see ss. 34 to 44 for the limits.",
+     "kind": "defence"
+    },
+    {
+     "s": 62,
+     "all": {
+      "attempt": "yes"
+     },
+     "unless": {
+      "intent": "yes"
+     },
+     "why": "An attempt to commit an offence is itself punishable under the general attempt provision.",
+     "sup": [
+      109
+     ]
+    }
+   ]
+  },
+  {
+   "id": "women",
+   "t": "Women and children",
+   "c": "#9d174d",
+   "d": "Conduct towards a woman or a child — harassment, force, marriage-related cruelty or trafficking.",
+   "qs": [
+    {
+     "id": "woman",
+     "q": "Was the person affected a woman?",
+     "h": ""
+    },
+    {
+     "id": "contact",
+     "q": "Was there unwanted physical contact, or a demand or request for sexual favours?",
+     "h": ""
+    },
+    {
+     "id": "remarks",
+     "q": "Were sexually coloured remarks made, or pornography shown?",
+     "h": ""
+    },
+    {
+     "id": "follow",
+     "q": "Was she followed, or contacted against her wishes, or watched online?",
+     "h": ""
+    },
+    {
+     "id": "images",
+     "q": "Were images taken or watched of her in a private act?",
+     "h": ""
+    },
+    {
+     "id": "outrage",
+     "q": "Was she assaulted or subjected to criminal force intending to outrage her modesty or to disrobe her?",
+     "h": ""
+    },
+    {
+     "id": "rape",
+     "q": "Was there sexual intercourse without consent?",
+     "h": ""
+    },
+    {
+     "id": "cruelty",
+     "q": "Was she subjected to cruelty or harassment by her husband or his relatives?",
+     "h": ""
+    },
+    {
+     "id": "dowry",
+     "q": "Was the cruelty or harassment in connection with a demand for dowry?",
+     "h": ""
+    },
+    {
+     "id": "death7",
+     "q": "Did she die within seven years of marriage, by burns or bodily injury, in circumstances that were not natural?",
+     "h": ""
+    },
+    {
+     "id": "child",
+     "q": "Was a child under eighteen involved?",
+     "h": ""
+    }
+   ],
+   "rules": [
+    {
+     "s": 64,
+     "all": {
+      "woman": "yes",
+      "rape": "yes"
+     },
+     "why": "Intercourse took place without consent, falling within the definition in s. 63. Punishment is under s. 64."
+    },
+    {
+     "s": 74,
+     "all": {
+      "woman": "yes",
+      "outrage": "yes"
+     },
+     "why": "Assault or criminal force was used on a woman with intent to outrage her modesty."
+    },
+    {
+     "s": 75,
+     "all": {
+      "woman": "yes",
+      "contact": "yes"
+     },
+     "why": "Unwelcome physical contact or a demand for sexual favours is sexual harassment under s. 75."
+    },
+    {
+     "s": 75,
+     "all": {
+      "woman": "yes",
+      "remarks": "yes"
+     },
+     "why": "Sexually coloured remarks or showing pornography fall within the fourth clause of s. 75."
+    },
+    {
+     "s": 77,
+     "all": {
+      "woman": "yes",
+      "images": "yes"
+     },
+     "why": "Watching or capturing images of a woman in a private act without consent is voyeurism."
+    },
+    {
+     "s": 78,
+     "all": {
+      "woman": "yes",
+      "follow": "yes"
+     },
+     "why": "Following or contacting a woman against her wishes, or monitoring her online, is stalking."
+    },
+    {
+     "s": 80,
+     "all": {
+      "woman": "yes",
+      "cruelty": "yes",
+      "dowry": "yes",
+      "death7": "yes"
+     },
+     "why": "Death within seven years of marriage following dowry-related cruelty — dowry death."
+    },
+    {
+     "s": 85,
+     "all": {
+      "woman": "yes",
+      "cruelty": "yes"
+     },
+     "why": "Cruelty by the husband or a relative of the husband, as defined in the explanation to s. 85."
+    },
+    {
+     "s": 137,
+     "all": {
+      "child": "yes"
+     },
+     "why": "Taking a child out of lawful guardianship is kidnapping — see also s. 137(2) for punishment.",
+     "kind": "consider"
+    },
+    {
+     "s": 143,
+     "all": {
+      "child": "yes",
+      "cruelty": "yes"
+     },
+     "why": "Recruiting, transporting or harbouring a child for exploitation is trafficking under s. 143.",
+     "kind": "consider"
+    }
+   ]
+  },
+  {
+   "id": "public",
+   "t": "Public order and the State",
+   "c": "#4c1d95",
+   "d": "Group conduct, threats to public peace, or acts against the security of India.",
+   "qs": [
+    {
+     "id": "assembly",
+     "q": "Were five or more people assembled with a common object?",
+     "h": ""
+    },
+    {
+     "id": "violence",
+     "q": "Was force or violence used by that group?",
+     "h": ""
+    },
+    {
+     "id": "enmity",
+     "q": "Did the words or acts promote enmity or disharmony between groups?",
+     "h": ""
+    },
+    {
+     "id": "organised",
+     "q": "Was this a continuing criminal enterprise run by a group?",
+     "h": ""
+    },
+    {
+     "id": "terror",
+     "q": "Was the act intended to strike terror, or to threaten the sovereignty or security of India?",
+     "h": ""
+    },
+    {
+     "id": "secession",
+     "q": "Did it incite secession or armed rebellion?",
+     "h": ""
+    }
+   ],
+   "rules": [
+    {
+     "s": 191,
+     "all": {
+      "assembly": "yes",
+      "violence": "yes"
+     },
+     "why": "Force or violence was used by an unlawful assembly — rioting."
+    },
+    {
+     "s": 189,
+     "all": {
+      "assembly": "yes"
+     },
+     "why": "An assembly of five or more with a common unlawful object is an unlawful assembly.",
+     "sup": [
+      191
+     ]
+    },
+    {
+     "s": 196,
+     "all": {
+      "enmity": "yes"
+     },
+     "why": "Words or acts promoting disharmony or enmity between groups on protected grounds."
+    },
+    {
+     "s": 111,
+     "all": {
+      "organised": "yes"
+     },
+     "why": "Continuing unlawful activity by a crime syndicate is organised crime — a new offence in the Sanhita."
+    },
+    {
+     "s": 113,
+     "all": {
+      "terror": "yes"
+     },
+     "why": "An act intended to threaten the unity, integrity, sovereignty or security of India is a terrorist act."
+    },
+    {
+     "s": 152,
+     "all": {
+      "secession": "yes"
+     },
+     "why": "Exciting or attempting to excite secession or armed rebellion falls under s. 152, which replaced sedition."
+    }
+   ]
+  },
+  {
+   "id": "roads",
+   "t": "Roads and negligence",
+   "c": "#b45309",
+   "d": "A collision, a rash act, or a driver who left the scene.",
+   "qs": [
+    {
+     "id": "vehicle",
+     "q": "Was a motor vehicle involved?",
+     "h": ""
+    },
+    {
+     "id": "death",
+     "q": "Did anyone die?",
+     "h": ""
+    },
+    {
+     "id": "injury",
+     "q": "Was anyone injured?",
+     "h": ""
+    },
+    {
+     "id": "flee",
+     "q": "Did the driver leave the scene without reporting to the police?",
+     "h": ""
+    },
+    {
+     "id": "rash",
+     "q": "Was the driving rash or negligent, rather than deliberate?",
+     "h": ""
+    }
+   ],
+   "rules": [
+    {
+     "s": 106,
+     "all": {
+      "death": "yes",
+      "rash": "yes",
+      "flee": "yes"
+     },
+     "why": "Death by rash or negligent driving followed by flight from the scene — s. 106(2), which carries up to ten years.",
+     "sup": [
+      103,
+      105
+     ]
+    },
+    {
+     "s": 106,
+     "all": {
+      "death": "yes",
+      "rash": "yes"
+     },
+     "unless": {
+      "flee": "yes"
+     },
+     "why": "Death caused by a rash or negligent act — s. 106(1), up to five years.",
+     "sup": [
+      103,
+      105
+     ]
+    },
+    {
+     "s": 115,
+     "all": {
+      "injury": "yes",
+      "rash": "yes"
+     },
+     "unless": {
+      "death": "yes"
+     },
+     "why": "Injury caused by a rash or negligent act may be charged as hurt; the procedure code and the Motor Vehicles Act also apply.",
+     "sup": [
+      117,
+      118,
+      119,
+      103,
+      105,
+      109
+     ]
+    }
+   ]
+  }
+ ]
+}

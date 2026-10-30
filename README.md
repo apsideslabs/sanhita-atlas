@@ -7,6 +7,8 @@ Indian Penal Code on 1 July 2024.
 
 ## The app
 
+- **Situation check** — a deterministic rules engine: answer fixed factual questions, and 41 rules
+  evaluate against your answers to show which sections apply, with the reason for each match
 - **358 sections** — full text extracted from the Gazette notification of 25 December 2023
 - **21 annotated** — explanation, worked example and leading case law
 - **Offline** — the whole code is cached by a service worker after first load
@@ -33,6 +35,7 @@ sw.js                    offline cache
 assets/css/app.css       design system
 assets/js/app.js         router, views, search, bookmarks
 assets/data/sections.json  358 sections + annotations (456 KB)
+assets/data/rules.json     the rules engine: 5 scenarios, 45 questions, 41 rules
 assets/icons/            app icons
 tools/                   generator
 ```

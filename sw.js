@@ -1,8 +1,8 @@
-const V = 'sanhita-v1';
+const V = 'sanhita-v2';
 const CORE = [
   './', './index.html', './manifest.webmanifest',
   './assets/css/app.css', './assets/js/app.js',
-  './assets/data/sections.json',
+  './assets/data/sections.json', './assets/data/rules.json',
   './assets/icons/icon-192.png', './assets/icons/icon-512.png'
 ];
 
