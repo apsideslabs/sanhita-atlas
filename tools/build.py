@@ -371,8 +371,20 @@ I_MENU = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-wid
           'stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>')
 I_X = ('<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
        'stroke-width="1.9" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>')
-I_ARROW = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" '
+I_ARROW = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" '
            'stroke-linecap="round"><path d="M5 12h13M12.5 6l6 6-6 6"/></svg>')
+ICONS = {
+ "book": '<path d="M4 5.5A1.5 1.5 0 015.5 4H10a2 2 0 012 2v13a2 2 0 00-2-2H5.5A1.5 1.5 0 014 15.5v-10z"/><path d="M20 5.5A1.5 1.5 0 0018.5 4H14a2 2 0 00-2 2v13a2 2 0 012-2h4.5a1.5 1.5 0 001.5-1.5v-10z"/>',
+ "layers": '<path d="M12 3l8.5 4.5L12 12 3.5 7.5 12 3z"/><path d="M3.5 12L12 16.5 20.5 12M3.5 16.5L12 21l8.5-4.5"/>',
+ "scale": '<path d="M12 4v16M7 20h10M4 8h16"/><path d="M4 8l-2 5h4L4 8zM20 8l-2 5h4l-2-5z"/>',
+ "gavel": '<path d="M13.5 4.5l6 6M16.5 7.5l-9 9M4 20h8"/><path d="M9.5 3.5l4 4-2.5 2.5-4-4z"/>',
+ "git": '<circle cx="6" cy="6" r="2.4"/><circle cx="6" cy="18" r="2.4"/><circle cx="18" cy="12" r="2.4"/><path d="M6 8.4v7.2M8.4 6h5.2a2 2 0 012 2v1.6"/>',
+ "spark": '<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3z"/>',
+ "file": '<path d="M13 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V9l-6-6z"/><path d="M13 3v6h6"/>',
+}
+def icon(name):
+    return ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" '
+            'stroke-linecap="round" stroke-linejoin="round">%s</svg>' % ICONS[name])
 
 
 def sidebar(rel, active_ch=None, cur=None):
@@ -414,7 +426,7 @@ def drawer(rel, active_ch=None):
     return "".join(out)
 
 
-def page(path, title, desc, body, active="", side=True, ch=None, cur=None):
+def page(path, title, desc, body, active="", side=True, ch=None, cur=None, sheet=True):
     rel = "../" * path.count("/")
     nav = "".join('<a href="%s%s"%s>%s</a>' % (rel, h, ' aria-current="true"' if h == active else "", l)
                   for h, l in [("index.html", "Home"), ("browse.html", "Sections"),
@@ -504,7 +516,8 @@ def page(path, title, desc, body, active="", side=True, ch=None, cur=None):
 </body>
 </html>""" % {"title": E(title), "desc": E(desc), "rel": rel, "nav": nav, "body": body,
               "mark": MARK, "menu": I_MENU, "search": I_SEARCH, "x": I_X,
-              "drawer": drawer(rel, ch), "shell": shell}
+              "drawer": drawer(rel, ch), "shell": shell,
+              "body": ('<div class="sheet">%s</div>' % body) if sheet else body}
 
 
 def pager(prev, nxt):
@@ -519,51 +532,58 @@ def pager(prev, nxt):
 
 # ── pages ────────────────────────────────────────────────────────────────
 def home():
-    cards = "".join(
-        '<a class="card" href="chapter/%d.html"><span class="card__k">'
-        '<span class="dot" style="background:%s"></span>Chapter %s &middot; ss. %d–%d</span>'
-        '<h3>%s</h3><p>%s</p></a>' % (n, c, r, f, l, E(t), E(b))
-        for n, r, t, f, l, c, b in CHAPTERS[:6])
-    featured = "".join(
-        '<a class="card" href="section/%d.html"><span class="card__k">Section %d</span>'
+    tiles = "".join(
+        '<a class="tile" href="chapter/%d.html" style="--ledge-c:%s">'
+        '<span class="tile__ic">%s</span>'
+        '<span class="tile__k"><span class="dot" style="background:%s"></span>Chapter %s &middot; ss. %d–%d</span>'
         '<h3>%s</h3><p>%s</p></a>'
-        % (n, n, E(BYN[n]["title"]), E(ANN[n]["why"][0][:120] + "…"))
+        % (n, c, icon(ic), c, r, f, l, E(t), E(b))
+        for (n, r, t, f, l, c, b), ic in zip(CHAPTERS[:6],
+                                            ["scale", "spark", "layers", "git", "book", "gavel"]))
+    featured = "".join(
+        '<a class="tile" href="section/%d.html" style="--ledge-c:%s">'
+        '<span class="tile__k"><span class="dot" style="background:%s"></span>Section %d</span>'
+        '<h3>%s</h3><p>%s</p></a>'
+        % (n, CHOF[n][3], CHOF[n][3], n, E(BYN[n]["title"]),
+           E(ANN[n]["why"][0].split(". ")[0] + "."))
         for n in (103, 85, 152))
     return """
 <section class="hero">
-  <div class="hero__in">
-    <div>
-      <p class="eyebrow">Bharatiya Nyaya Sanhita &middot; Act 45 of 2023</p>
-      <h1>The penal code, <em>annotated</em>.</h1>
-      <p class="hero__lede">All 358 sections of the BNS with the statutory text, an explanation of what each one
-      does, a worked example, and the case law that still governs it.</p>
-      <div class="hero__act">
-        <a class="btn btn--primary" href="browse.html">Browse all 358 sections %s</a>
-        <a class="btn btn--ghost" href="section/103.html">Start with s. 103</a>
+  <div class="wrap">
+    <div class="hero__panel">
+      <span class="orb orb--1"></span><span class="orb orb--2"></span><span class="orb orb--3"></span>
+      <div class="hero__in">
+        <div>
+          <p class="eyebrow">Bharatiya Nyaya Sanhita &middot; Act 45 of 2023</p>
+          <h1>The penal code, <em>annotated</em>.</h1>
+          <p class="hero__lede">All 358 sections of the BNS with the statutory text, an explanation of what each
+          one does, a worked example, and the case law that still governs it.</p>
+          <div class="hero__act">
+            <a class="btn btn--primary" href="browse.html">Browse all 358 sections %s</a>
+            <a class="btn btn--ghost" href="section/103.html">Start with s. 103</a>
+          </div>
+        </div>
+        <div class="hero__stats">
+          <div class="hstat"><b>358</b><span>sections</span></div>
+          <div class="hstat"><b>20</b><span>chapters</span></div>
+          <div class="hstat"><b>21</b><span>annotated in full</span></div>
+          <div class="hstat"><b>37</b><span>IPC mappings</span></div>
+        </div>
       </div>
     </div>
-    <aside class="hero__panel">
-      <h4>The code at a glance</h4>
-      <dl class="facts">
-        <div><dt>358</dt><dd>sections</dd></div>
-        <div><dt>20</dt><dd>chapters</dd></div>
-        <div><dt>21</dt><dd>annotated in full</dd></div>
-        <div><dt>37</dt><dd>IPC mappings</dd></div>
-      </dl>
-    </aside>
   </div>
 </section>
 
-<div class="wrap">
+<div class="wrap" style="padding-top:2.2rem">
   <section class="sect">
     <div class="sect__head"><h2>Annotated sections</h2>
-      <a class="sect__link" href="browse.html">See all sections</a></div>
+      <a class="sect__link" href="browse.html">See all sections %s</a></div>
     <div class="grid grid--3">%s</div>
   </section>
 
   <section class="sect">
     <div class="sect__head"><h2>Browse by chapter</h2>
-      <a class="sect__link" href="chapters.html">All 20 chapters</a></div>
+      <a class="sect__link" href="chapters.html">All 20 chapters %s</a></div>
     <div class="grid grid--3">%s</div>
   </section>
 
@@ -577,7 +597,7 @@ def home():
     </div>
   </section>
 </div>
-""" % (I_ARROW, featured, cards)
+""" % (I_ARROW, I_ARROW, featured, I_ARROW, tiles)
 
 
 def browse():
@@ -614,9 +634,9 @@ def browse():
 
 def chapters():
     cards = "".join(
-        '<a class="card" href="chapter/%d.html"><span class="card__k">'
-        '<span class="dot" style="background:%s"></span>Chapter %s &middot; ss. %d–%d</span>'
-        '<h3>%s</h3><p>%s</p></a>' % (n, c, r, f, l, E(t), E(b))
+        '<a class="tile" href="chapter/%d.html" style="--ledge-c:%s">'
+        '<span class="tile__k"><span class="dot" style="background:%s"></span>Chapter %s &middot; ss. %d–%d</span>'
+        '<h3>%s</h3><p>%s</p></a>' % (n, c, c, r, f, l, E(t), E(b))
         for n, r, t, f, l, c, b in CHAPTERS)
     return ('<div class="crumbs"><a href="index.html">Home</a><i>/</i><em>Chapters</em></div>'
             '<div class="phead"><h1>The twenty chapters</h1>'
@@ -735,8 +755,8 @@ def mapping():
 
 def changes():
     cards = "".join(
-        '<a class="card" href="section/%s.html"><span class="card__k">Section %s</span><h3>%s</h3>'
-        '<p>%s</p></a>' % (s.split("(")[0], E(s), E(t), E(d)) for s, t, d in NEW_OFFENCES)
+        '<a class="tile" href="section/%s.html"><span class="tile__k">Section %s</span>'
+        '<h3>%s</h3><p>%s</p></a>' % (s.split("(")[0], E(s), E(t), E(d)) for s, t, d in NEW_OFFENCES)
     return ('<div class="crumbs"><a href="index.html">Home</a><i>/</i><em>What changed</em></div>'
             '<div class="phead"><h1>What changed on 1 July 2024</h1>'
             '<p class="phead__lede">The Sanhita is not a rewrite of the IPC so much as a renumbering with '
@@ -804,7 +824,7 @@ def main():
          changes(), "changes.html", True),
         ("about.html", "About — Sanhita Atlas", "About the reference.", about(), "about.html", True)]:
         with open(os.path.join(OUT, path), "w", encoding="utf-8") as f:
-            f.write(page(path, title, desc, body, active, side=side))
+            f.write(page(path, title, desc, body, active, side=side, sheet=(path != "index.html")))
 
     for n in range(1, 21):
         p = "chapter/%d.html" % n
