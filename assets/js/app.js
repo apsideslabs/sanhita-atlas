@@ -2,6 +2,7 @@
 (function () {
   'use strict';
 
+  var BUILD = 'atlas-5';
   var DATA = null, RULES = null, FUSE = null, CH = {}, SECS = [];
   var view = document.getElementById('view');
   var store = {
@@ -23,6 +24,15 @@
     return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
     });
+  }
+  function stamp() {
+    var el = document.querySelector('.brand b');
+    if (el && !document.querySelector('.buildstamp')) {
+      var s = document.createElement('span');
+      s.className = 'buildstamp';
+      s.textContent = BUILD;
+      el.parentNode.appendChild(s);
+    }
   }
   function toast(msg) {
     var t = document.getElementById('toast');
@@ -448,7 +458,7 @@
       '<span class="row__n">' + ic('trash') + '</span><span class="row__t">Clear saved sections</span>' +
       '<span class="row__chev">' + ic('chev') + '</span></button>' +
       '<div class="note">Offline ready — the whole code is cached after first load. ' +
-      'Build 1.1 &middot; situation checker &middot; October 2026</div>';
+      'Build 2.0 &middot; ' + BUILD + ' &middot; October 2026</div>';
   }
 
   function toggleSave(n) {
@@ -496,9 +506,17 @@
   window.addEventListener('offline', offline);
 
   load().then(function () {
-    bind(); route(); paintList(); offline();
+    bind(); route(); paintList(); offline(); stamp();
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js').catch(function () {});
+      var reloaded = false;
+      navigator.serviceWorker.addEventListener('controllerchange', function () {
+        if (reloaded) return;
+        reloaded = true;
+        location.reload();
+      });
+      navigator.serviceWorker.register('sw.js').then(function (reg) {
+        reg.update().catch(function () {});
+      }).catch(function () {});
     }
   }).catch(function () {
     view.innerHTML = '<div class="empty"><h3>Could not load the code</h3>' +

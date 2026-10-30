@@ -1,4 +1,4 @@
-const V = 'sanhita-v4';
+const V = 'sanhita-v5';
 const CORE = [
   './', './index.html', './manifest.webmanifest',
   './assets/css/app.css', './assets/js/app.js',

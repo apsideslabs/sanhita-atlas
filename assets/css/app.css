@@ -366,3 +366,6 @@ body.is-offline .offline{display:block}
 .cmap__ax{display:flex;justify-content:space-between;padding:.25rem .65rem 0;
   font-family:var(--fm);font-size:.56rem;color:var(--faint)}
 .cmap__k{margin:.3rem 0 0;font-size:.68rem;color:var(--faint);text-align:center}
+
+.buildstamp{font-family:var(--fm);font-size:.52rem;font-weight:500;color:var(--faint);
+  border:1px solid var(--border);border-radius:4px;padding:1px 4px;margin-left:.15rem;letter-spacing:.02em}
