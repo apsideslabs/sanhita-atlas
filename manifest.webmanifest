@@ -1,0 +1,21 @@
+{
+  "name": "Sanhita Atlas — BNS 2023",
+  "short_name": "Sanhita",
+  "description": "All 358 sections of the Bharatiya Nyaya Sanhita, 2023 — text, explanation, worked example and case law.",
+  "start_url": "./#/home",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f1eff3",
+  "theme_color": "#7a1f3d",
+  "categories": ["education", "reference", "books"],
+  "icons": [
+    { "src": "assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Browse sections", "url": "./#/browse" },
+    { "name": "Saved", "url": "./#/saved" }
+  ]
+}

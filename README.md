@@ -1,59 +1,48 @@
 # Sanhita Atlas
 
-A full-text reference to the **Bharatiya Nyaya Sanhita, 2023** — the code that replaced the Indian Penal Code
-on 1 July 2024.
+An installable **PWA** reference to the **Bharatiya Nyaya Sanhita, 2023** — the code that replaced the
+Indian Penal Code on 1 July 2024.
 
 **Live:** https://apsideslabs.github.io/sanhita-atlas/
 
-## What it is
+## The app
 
-Every one of the 358 sections of the Act, extracted from the Gazette notification of 25 December 2023, each on
-its own page with the statutory text, its chapter, the section that follows it, and the IPC provision it replaced.
-
-- **358 section pages** — the text of the provision, set for reading
-- **20 chapter pages** — ranges, subject matter and the sections inside
-- **Browse** — all sections in one filterable table
-- **Search** — Fuse.js over the full text of every section, opened with `/`
-- **IPC to BNS** — 35 correspondences with notes where the provision was rewritten
+- **358 sections** — full text extracted from the Gazette notification of 25 December 2023
+- **21 annotated** — explanation, worked example and leading case law
+- **Offline** — the whole code is cached by a service worker after first load
+- **Installable** — add to home screen; runs standalone with its own icon and splash
+- **Saved sections** — bookmarks kept in local storage
+- **Search** — full-text, over every section
 
 ## Stack
 
-Static HTML and CSS. No framework, no build runtime in the browser.
-
 | Layer | Choice |
 | --- | --- |
-| Type | Source Serif 4 (statute), Instrument Sans (UI), JetBrains Mono (numbers) |
-| Interactivity | [Alpine.js](https://alpinejs.dev) 3 |
-| Search | [Fuse.js](https://fusejs.io) over a static JSON index |
+| Shell | Hand-written HTML/CSS, hash router, no framework |
+| Search | [Fuse.js](https://fusejs.io) over a static JSON bundle |
+| Offline | Service worker, cache-first with stale-while-revalidate for CDN |
+| Type | Plus Jakarta Sans, Source Serif 4, JetBrains Mono |
 | Hosting | GitHub Pages |
 
 ## Structure
 
 ```
-index.html            overview
-browse.html           all 358 sections, filterable
-chapters.html         20 chapter cards
-chapter/N.html        a chapter and its sections
-section/N.html        a single section
-mapping.html          IPC to BNS correspondence
-changes.html          new offences and what moved
-about.html            404.html
-assets/               css, js, search index, favicon
-tools/                generator (build.py, parse.py, src/)
+index.html               app shell (app bar, rail, tab bar)
+manifest.webmanifest     install metadata and icons
+sw.js                    offline cache
+assets/css/app.css       design system
+assets/js/app.js         router, views, search, bookmarks
+assets/data/sections.json  358 sections + annotations (456 KB)
+assets/icons/            app icons
+tools/                   generator
 ```
 
 ## Rebuilding
 
 ```bash
-# 1. extract the Act from the Gazette PDF
-python3 tools/parse.py        # -> sections.json
-
-# 2. generate the site
-python3 tools/build.py        # -> dist/
+python3 tools/parse.py     # Gazette PDF  -> sections.json
+python3 tools/build.py     # sections + annotations -> assets/data/sections.json
 ```
-
-`tools/parse.py` reads the 102-page Gazette PDF and splits it into 358 sections using the section numbering,
-the chapter headings and the marginal notes.
 
 ## Licence
 
