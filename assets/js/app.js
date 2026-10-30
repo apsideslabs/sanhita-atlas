@@ -455,8 +455,14 @@
       '<span class="row__n">' + ic('book') + '</span><span class="row__t">India Code (official source)</span>' +
       '<span class="row__chev">' + ic('chev') + '</span></a>' +
       '<button class="row" id="clear" style="width:100%;text-align:left;cursor:pointer">' +
-      '<span class="row__n">' + ic('trash') + '</span><span class="row__t">Clear saved sections</span>' +
+      '<span class="row__n">' + ic('trash-2') + '</span><span class="row__t">Clear saved sections</span>' +
       '<span class="row__chev">' + ic('chev') + '</span></button>' +
+      '<button class="row" id="reset" style="width:100%;text-align:left;cursor:pointer">' +
+      '<span class="row__n">' + ic('wifi-off') + '</span><span class="row__t">Reset app and force update</span>' +
+      '<span class="row__chev">' + ic('chev') + '</span></button>' +
+      '<a class="row" href="preview.html">' +
+      '<span class="row__n">' + ic('layers') + '</span><span class="row__t">Design system preview</span>' +
+      '<span class="row__chev">' + ic('chev') + '</span></a>' +
       '<div class="note">Offline ready — the whole code is cached after first load. ' +
       'Build 2.0 &middot; ' + BUILD + ' &middot; October 2026</div>';
   }
@@ -487,6 +493,22 @@
       var i = e.target.closest('#install'); if (i) { promptInstall(); return; }
       var c = e.target.closest('#clear');
       if (c) { saved = []; store.set('saved', []); toast('Cleared'); route(); }
+      var rs = e.target.closest('#reset');
+      if (rs) {
+        toast('Clearing cache…');
+        var done = function () { location.replace(location.pathname + '?r=' + Date.now()); };
+        if ('caches' in window) {
+          caches.keys().then(function (ks) {
+            return Promise.all(ks.map(function (k) { return caches.delete(k); }));
+          }).then(function () {
+            if ('serviceWorker' in navigator) {
+              navigator.serviceWorker.getRegistrations().then(function (rs2) {
+                return Promise.all(rs2.map(function (r) { return r.unregister(); }));
+              }).then(done).catch(done);
+            } else done();
+          }).catch(done);
+        } else done();
+      }
     });
   }
 
