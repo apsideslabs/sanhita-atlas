@@ -1,4 +1,4 @@
-const V = 'sanhita-v2';
+const V = 'sanhita-v3';
 const CORE = [
   './', './index.html', './manifest.webmanifest',
   './assets/css/app.css', './assets/js/app.js',
@@ -21,6 +21,18 @@ self.addEventListener('fetch', e => {
   const req = e.request;
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
+
+  // navigations always try the network first, so a new build shows up immediately
+  if (req.mode === 'navigate') {
+    e.respondWith(
+      fetch(req).then(res => {
+        const copy = res.clone();
+        caches.open(V).then(c => c.put('./index.html', copy));
+        return res;
+      }).catch(() => caches.match('./index.html'))
+    );
+    return;
+  }
 
   // data + assets: cache first, then network
   if (url.origin === location.origin) {

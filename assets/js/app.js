@@ -447,7 +447,7 @@
       '<span class="row__n">' + ic('trash') + '</span><span class="row__t">Clear saved sections</span>' +
       '<span class="row__chev">' + ic('chev') + '</span></button>' +
       '<div class="note">Offline ready — the whole code is cached after first load. ' +
-      'Version 1.0 &middot; updated October 2026.</div>';
+      'Build 1.1 &middot; situation checker &middot; October 2026</div>';
   }
 
   function toggleSave(n) {
