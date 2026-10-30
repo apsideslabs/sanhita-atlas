@@ -13,26 +13,11 @@
   var answers = store.get('answers', {});
   var SCEN = {};
 
-  var IC = {
-    home: '<path d="M4 10.5L12 4l8 6.5V20H4z"/><path d="M9.5 20v-5h5v5"/>',
-    list: '<path d="M8 6h12M8 12h12M8 18h12"/><circle cx="4.2" cy="6" r="1.1"/><circle cx="4.2" cy="12" r="1.1"/><circle cx="4.2" cy="18" r="1.1"/>',
-    bookmark: '<path d="M6 4h12v16l-6-4.2L6 20V4z"/>',
-    more: '<circle cx="12" cy="12" r="8.5"/><path d="M12 11v5M12 8h.01"/>',
-    search: '<circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/>',
-    back: '<path d="M15 6l-6 6 6 6"/>',
-    chev: '<path d="M9 6l6 6-6 6"/>',
-    book: '<path d="M4 5.5A1.5 1.5 0 015.5 4H10a2 2 0 012 2v13a2 2 0 00-2-2H5.5A1.5 1.5 0 014 15.5v-10z"/><path d="M20 5.5A1.5 1.5 0 0018.5 4H14a2 2 0 00-2 2v13a2 2 0 012-2h4.5a1.5 1.5 0 001.5-1.5v-10z"/>',
-    layers: '<path d="M12 3l8.5 4.5L12 12 3.5 7.5 12 3z"/><path d="M3.5 12L12 16.5 20.5 12M3.5 16.5L12 21l8.5-4.5"/>',
-    scale: '<path d="M12 4v16M7 20h10M4 8h16"/><path d="M4 8l-2 5h4L4 8zM20 8l-2 5h4l-2-5z"/>',
-    gavel: '<path d="M13.5 4.5l6 6M16.5 7.5l-9 9M4 20h8"/><path d="M9.5 3.5l4 4-2.5 2.5-4-4z"/>',
-    git: '<circle cx="6" cy="6" r="2.4"/><circle cx="6" cy="18" r="2.4"/><circle cx="18" cy="12" r="2.4"/><path d="M6 8.4v7.2M8.4 6h5.2a2 2 0 012 2v1.6"/>',
-    spark: '<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3z"/>',
-    download: '<path d="M12 4v11M7 11l5 5 5-5M5 20h14"/>',
-    trash: '<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>'
-  };
+  var ALIAS = { home: 'house', more: 'info', back: 'chevron-left', chev: 'chevron-right',
+    book: 'book-open', git: 'landmark', spark: 'sparkles', 'shield': 'shield-check' };
   function ic(n, cls) {
-    return '<svg class="' + (cls || '') + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
-      'stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + IC[n] + '</svg>';
+    var id = ALIAS[n] || n;
+    return '<svg class="i ' + (cls || '') + '" aria-hidden="true"><use href="#i-' + id + '"></use></svg>';
   }
   function esc(s) {
     return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
@@ -156,6 +141,8 @@
       '<div class="hstat"><b>21</b><span>Annotated</span></div>' +
       '<div class="hstat"><b>37</b><span>IPC maps</span></div>' +
       '</div></div></section>' +
+      '<div class="sect"><div class="sect__head"><h2>The code at a glance</h2>' +
+      '<a href="#/browse">All sections</a></div>' + cmap() + '</div>' +
       '<div class="sect"><div class="sect__head"><h2>Situation check</h2>' +
       '<a href="#/check">Open</a></div>' +
       '<a class="tile" href="#/check" style="--lc:#7a1f3d;display:flex;gap:.8rem;align-items:center">' +
@@ -278,6 +265,20 @@
       '</div>' +
       '<div class="note">Text extracted from the Gazette notification of 25 December 2023. Check the official ' +
       'copy before relying on it.</div>';
+  }
+
+  function cmap() {
+    var max = Math.max.apply(null, DATA.chapters.map(function (c) { return c.l - c.f + 1; }));
+    var bars = DATA.chapters.map(function (c) {
+      var n = c.l - c.f + 1;
+      var h = Math.round(18 + (n / max) * 82);
+      return '<a href="#/chapter/' + c.n + '" class="cmap__b" style="--c:' + c.c + ';--h:' + h + '%" ' +
+        'title="Chapter ' + c.r + ' — ' + n + ' sections" aria-label="Chapter ' + c.r +
+        ', ' + n + ' sections"><i></i></a>';
+    }).join('');
+    return '<div class="cmap">' + bars + '</div>' +
+      '<div class="cmap__ax"><span>I</span><span>XX</span></div>' +
+      '<p class="cmap__k">Twenty chapters &middot; bar height is the number of sections &middot; tap to open</p>';
   }
 
   function countAns(id) {

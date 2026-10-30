@@ -1,9 +1,9 @@
-const V = 'sanhita-v3';
+const V = 'sanhita-v4';
 const CORE = [
   './', './index.html', './manifest.webmanifest',
   './assets/css/app.css', './assets/js/app.js',
   './assets/data/sections.json', './assets/data/rules.json',
-  './assets/icons/icon-192.png', './assets/icons/icon-512.png'
+  './assets/icons/icon-192.png', './assets/icons/icon-512.png', './assets/icons/sprite.svg'
 ];
 
 self.addEventListener('install', e => {
